@@ -1,12 +1,12 @@
 {
   "name": "video-player",
   "version": "1.0.0",
-  "description": "---",
+  "description": "A simple and easy-to-use library that provides a custom videoplayer built on top of the html video element. It customises and extends the available controls.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Abi Matthews-Gordon (https://abimatthewsgordon.dev)",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.3.3",
