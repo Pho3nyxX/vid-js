@@ -1,7 +1,5 @@
 # Video Player 
 
-![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FPho3nyxX%2Fvideo-player&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Page+Views&edge_flat=false)
-
 ## Introduction
 
  Video Player is a simple and easy-to-use library that provides a custom videoplayer built on top of the html video element. It customises and extends the available controls. 
