@@ -1,98 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Video Player</title>
+		<link rel="stylesheet" href="styles/styles.css" />
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Player</title>
-    <link rel="stylesheet" href="styles/bootstrap.css">
-    <link rel="stylesheet" href="styles/bootstrap-icons.css">
-    <link rel="stylesheet" href="styles/styles.css">
-</head>
+	<body>
+		<div class="video-holder">
+			<h1>Video Player</h1>
 
-<body class="full-page">
+			<div class="video-container" id="videoContainer">
+				<video class="video" src="video/video.mp4"></video>
 
-    <div class="container video-holder main">
-        <h1 class="white-text mb-3 text-center">Video Player</h1>
-        <div class="row">
-            <div class="col video-container ps-0 pe-0" id="videoContainer">
-                <video class="video" controls="false" src="video/video.mp4"></video>
+				<div class="video-controls">
+					<div class="scrub-container">
+						<div class="scrub-bar">
+							<div class="scrub-progress" style="width: 0%"></div>
+							<div class="scrub-circle" style="left: 0%"></div>
+						</div>
+					</div>
 
-                <div class="video-controls justify-content-between">
-                    <div class="scrub-container">
-                        <div class="scrub-bar">
-                            <div class="scrub-progress" style="width: 0%;"></div>
-                            <div class="scrub-circle" style="left: 0%;"></div>
-                        </div>
-                    </div>
+					<div class="controls">
+						<button class="play-pause-btn">
+							<img src="assets/play.svg" alt="play" class="play"/>
+						</button>
 
-                    <div class="controls">
-                        <button class="play-pause-btn"><i class="bi bi-play-fill"></i></button>
+						<button class="skip-btn">
+							<img src="assets/skip-forward.svg" alt="skip forward" />
+						</button>
 
-                        <button class="volume-btn">
-                            <i class="bi bi-volume-up-fill mute-icon"></i>
+						<button class="volume-btn">
+							<img src="assets/mute.svg" alt="mute" class="mute-icon" />
 
-                            <div class="volume-scrub-container">
-                                <div class="volume-scrub-bar">
-                                    <div class="volume-scrub-progress" style="width: 50%;"></div>
-                                    <div class="volume-scrub-circle" style="left: 50%;"></div>
-                                </div>
-                            </div>
-                        </button>
-                        
-                        <span>
-                            <span class="video-current-time">00:00</span> /
-                            <span class="video-duration"> 00:00</span>
-                        </span>
-                    </div>
+							<div class="volume-scrub-container">
+								<div class="volume-scrub-bar">
+									<div class="volume-scrub-progress" style="width: 50%"></div>
+									<div class="volume-scrub-circle" style="left: 50%"></div>
+								</div>
+							</div>
+						</button>
 
-                    <div class="controls right">
-                        <button class="settings-btn"><i class="bi bi-gear-fill"></i></button>
-                        <button class="full-screen-btn"><i class="bi bi-arrows-fullscreen"></i></button>
-                    </div>
-                </div>
+						<span>
+							<span class="video-current-time">00:00</span> /
+							<span class="video-duration"> 00:00</span>
+						</span>
+					</div>
 
-                <div class="settings-menu">
-                    <div class="menu-item">
-                        <a class="menu-item-link" href="#">
-                            <span><i class="bi bi-chevron-left"></i><i class="bi bi-play-circle"></i>Playback speed</span>
-                            <span>Normal<i class="bi bi-chevron-right"></i></span>
-                        </a>
-                        <ul class="sub-menu" id="playbackSpeedMenu">
-                            <li><a href="#" data-value=0.25>0.25</a></li>
-                            <li><a href="#" data-value="0.5">0.5</a></li>
-                            <li><a href="#" data-value=0.75>0.75</a></li>
-                            <li><a href="#" data-value=1><i class="bi bi-check-lg"></i>Normal</a></li>
-                            <li><a href="#" data-value=1.25>1.25</a></li>
-                            <li><a href="#" data-value=1.5>1.5</a></li>
-                            <li><a href="#" data-value=1.75>1.75</a></li>
-                            <li><a href="#" data-value=2>2</a></li>
-                        </ul>
-                    </div>
+					<div class="controls">
+						<button class="settings-btn">
+							<img src="assets/settings.svg" alt="setting" />
+						</button>
+						<button class="full-screen-btn">
+							<img src="assets/fullscreen.svg" alt="fullscreen" />
+						</button>
+					</div>
+				</div>
 
-                    <div class="menu-item">
-                        <a class="menu-item-link" href="#">
-                            <span><i class="bi bi-chevron-left"></i><i class="bi bi-sliders2"></i>Quality</span>
-                            <span>Auto<i class="bi bi-chevron-right"></i></span>
-                        </a>
-                        <ul class="sub-menu" id="qualityMenu">
-                            <li><a href="#">1080p</a></li>
-                            <li><a href="#">720p</a></li>
-                            <li><a href="#">480p</a></li>
-                            <li><a href="#">360p</a></li>
-                            <li><a href="#">240p</a></li>
-                            <li><a href="#">144p</a></li>
-                            <li><a href="#">Auto</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+				<div class="settings-menu">
+					<div class="menu-item">
+						<a class="menu-item-link" href="#">
+							<span>
+								<img src="assets/left.svg" alt="left" class="left" />
+								<img
+									src="assets/playback-speed.svg"
+									alt="playback speed"
+									class="playback-speed"
+								/>
+								Playback speed
+							</span>
+							<span>
+								Normal
+								<img src="assets/right.svg" alt="right" />
+							</span>
+						</a>
 
-    <script src="scripts/bootstrap.js"></script>
-    <script type="module" src="scripts/site.js"></script>
+						<ul class="sub-menu" id="playbackSpeedMenu">
+							<li><a href="#" data-value="0.25">0.25</a></li>
+							<li><a href="#" data-value="0.5">0.5</a></li>
+							<li><a href="#" data-value="0.75">0.75</a></li>
+							<li>
+								<a href="#" data-value="1">
+									<img src="assets/tick.svg" alt="tick" />
+									Normal
+								</a>
+							</li>
+							<li><a href="#" data-value="1.25">1.25</a></li>
+							<li><a href="#" data-value="1.5">1.5</a></li>
+							<li><a href="#" data-value="1.75">1.75</a></li>
+							<li><a href="#" data-value="2">2</a></li>
+						</ul>
+					</div>
 
-</body>
+					<div class="menu-item">
+						<a class="menu-item-link" href="#">
+							<span>
+								<img src="assets/left.svg" alt="left" />
+								<!-- <i class="bi bi-sliders2"></i> -->
+								Quality
+							</span>
+							<span>
+								Auto
+								<img src="assets/right.svg" alt="right" />
+							</span>
+						</a>
 
+						<ul class="sub-menu" id="qualityMenu">
+							<li><a href="#">1080p</a></li>
+							<li><a href="#">720p</a></li>
+							<li><a href="#">480p</a></li>
+							<li><a href="#">360p</a></li>
+							<li><a href="#">240p</a></li>
+							<li><a href="#">144p</a></li>
+							<li><a href="#">Auto</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="module" src="scripts/site.js"></script>
+	</body>
 </html>

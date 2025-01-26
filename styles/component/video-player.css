@@ -1,0 +1,220 @@
+.video-holder {
+	margin: 50px auto;
+
+	h1 {
+		padding-block: 30px;
+		text-align: center;
+		font-size: var(--fs-1);
+	}
+
+	.video-container {
+		height: 525px;
+		width: 620px;
+		border-radius: 12px;
+		background: transparent;
+		background-color: #000;
+		position: relative;
+        overflow: hidden;
+
+		.video {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			z-index: 0;
+			outline: 0;
+		}
+
+		.scrub-container {
+			position: absolute;
+			width: 100%;
+			top: 0;
+			left: 0;
+
+			.scrub-bar {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 3px;
+				background-color: var(--text);
+                opacity: 0.3;
+                cursor: pointer;
+
+				.scrub-progress {
+					background-color: var(--primary-color);
+					height: 3px;
+					width: 0%;
+				}
+
+				.scrub-circle {
+					position: absolute;
+                    top: -6px;
+                    left: 0;
+                    border-radius: 50%;
+                    width: 15px;
+                    height: 15px;
+                    background-color: var(--primary-color);
+				}
+			}
+		}
+
+		.video-controls {
+			display: flex;
+            justify-content: space-between;
+			position: absolute;
+			width: 100%;
+			bottom: 0;
+			left: 0;
+			padding: 20px;
+			background-color: #0001;
+
+            .controls {
+
+                button {
+                    border: none;
+                    background: transparent;
+                    cursor: pointer;
+                }
+                
+                img {
+                    margin-right: 10px;
+                }
+
+                span {
+                    color: var(--text);
+                }
+            }
+		}
+
+        .settings-menu {
+            display: none;
+            position: absolute;
+            bottom: 75px;
+            right: 15px;
+            width: 250px;
+            background-color: #bfbfbf;
+            border-radius: 8px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+
+            >.menu-item {
+                display: block;
+                width: 100%;
+                position: relative;
+
+                >a {
+                    .left {
+                        display: none;
+                    }
+
+                    .playback-speed {
+                        display: inline;
+                    }
+                }
+
+                a {
+                    display: block;
+                    padding: 10px;
+
+                    span:first-child {
+                        img {
+                            margin-right: 5px;
+                        }
+                    }
+
+                    span:last-child {
+                        float: right;
+                    }
+
+                    &:hover {
+                        background-color: #93b7c1;
+                    }
+                }
+
+                &.active {
+
+                    >a {
+                        font-size: 18px;
+                        border-bottom: 1px solid #999;
+
+                        .left {
+                            display: inline;
+                        }
+
+                        .playback-speed,
+                        i.bi-sliders2,
+                        span:last-child {
+                            display: none;
+                        }
+                    }
+
+                    .sub-menu {
+                        display: block;
+                    }
+                }
+
+                .sub-menu {
+                    display: none;
+                    margin-bottom: 0;
+                    list-style: none;
+                    padding: 0;
+                    background: #ccc;
+                    border-bottom: 1px solid #999;
+
+                    li {
+                        padding-left: 28px;
+                        padding-right: 28px;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: #93b7c1;
+                        }
+                    }
+                }
+            }
+
+            &.active {
+                display: block;
+            }
+        }
+
+        &.fullscreen {
+            button {
+                img {
+                    color: var(--text);
+                }
+            }
+
+            .controls {
+                span {
+                    color: var(--text);
+                }
+            }
+        }
+	}
+}
+
+@media (min-width: 48em) {
+    .video-holder {
+        .video-container {
+            width: 650px;
+        }
+    }
+}
+
+@media (min-width: 64em) {
+    .video-holder {
+        .video-container {
+            width: 900px;
+        }
+    }
+}
+
+@media (min-width: 96em) {
+    .video-holder {
+        .video-container {
+		    height: 700px;
+            width: 1200px;
+        }
+    }
+}

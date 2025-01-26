@@ -291,7 +291,6 @@ class VideoPlayer {
         this.videoElement.addEventListener("seeked", this.seekEventListener);
         this.videoElement.addEventListener("loadedmetadata", this.metaDataLoaded);
         this.scrubBar.addEventListener("click", this.scrubBarPress);
-
         this.volumeProgressHandle.addEventListener("mousedown", this.volumeProgressHandleDownMousePress);
     }
 
@@ -305,32 +304,28 @@ class VideoPlayer {
 
     play() {
         this.videoElement.play();
-        let playBtnIcon = this.playBtn.querySelector("i");
-        playBtnIcon.classList.remove("bi-play-fill");
-        playBtnIcon.classList.add("bi-pause-fill");
+        let playBtnIcon = this.playBtn.querySelector("img");
+        playBtnIcon.src = "assets/pause.svg";
     }
-
+    
     pause() {
         this.videoElement.pause();
-        let playBtnIcon = this.playBtn.querySelector("i");
-        playBtnIcon.classList.remove("bi-pause-fill");
-        playBtnIcon.classList.add("bi-play-fill");
+        let playBtnIcon = this.playBtn.querySelector("img");
+        playBtnIcon.src = "assets/play.svg";
     }
 
     fullsreen() {
         this.videoContainer.classList.add("fullscreen");
         this.videoContainer.requestFullscreen();
-        let fullscreenBtnIcon = this.fullScreenBtn.querySelector("i");
-        fullscreenBtnIcon.classList.add("bi-fullscreen-exit");
-        fullscreenBtnIcon.classList.remove("bi-arrows-fullscreen");
+        let fullscreenBtnIcon = this.fullScreenBtn.querySelector("img");
+        fullscreenBtnIcon.src = "assets/fullscreen-exit.svg";
     }
-
+    
     exitFullscreen() {
         this.videoContainer.classList.remove("fullscreen");
         document.exitFullscreen()
-        let fullscreenBtnIcon = this.fullScreenBtn.querySelector("i");
-        fullscreenBtnIcon.classList.add("bi-arrows-fullscreen");
-        fullscreenBtnIcon.classList.remove("bi-fullscreen-exit");
+        let fullscreenBtnIcon = this.fullScreenBtn.querySelector("img");
+        fullscreenBtnIcon.src = "assets/fullscreen.svg";
     }
 
     FullExitScreen = (e) => {
@@ -354,16 +349,12 @@ class VideoPlayer {
     }
 
     mute() {
-        // let muteBtnIcon = this.muteIcon.querySelector("i");
-        this.muteIcon.classList.remove("bi-volume-up-fill");
-        this.muteIcon.classList.add("bi-volume-mute-fill");
+        this.muteIcon.src = "assets/unmute.svg";
         this.videoElement.muted = true;
     }
 
     unmute() {
-        // let muteBtnIcon = this.muteIcon.querySelector("i");
-        this.muteIcon.classList.remove("bi-volume-mute-fill");
-        this.muteIcon.classList.add("bi-volume-up-fill");
+        this.muteIcon.src = "assets/mute.svg";
         this.videoElement.muted = false;
     }
 
@@ -400,9 +391,9 @@ class VideoPlayer {
         if (this.playbackSpeed !== newSpeed) {
             let currentSpeedEl = this.videoContainer.querySelector("a[data-value='" + this.playbackSpeed + "']");
             currentSpeedEl.innerHTML = this.playbackSpeed;
-            let newSpeedEl = this.videoContainer.querySelector("a[data-value='" + newSpeed + "']")
+            let newSpeedEl = this.videoContainer.querySelector("a[data-value='" + newSpeed + "']");
 
-            newSpeedEl.innerHTML = "<i class='bi bi-check-lg'></i>" + newSpeed;
+            newSpeedEl.innerHTML = `<img src="assets/tick.svg" alt="tick" />` + newSpeed;
         }
     }
 
