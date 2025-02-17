@@ -349,12 +349,12 @@ class VideoPlayer {
     }
 
     mute() {
-        this.muteIcon.src = "assets/unmute.svg";
+        this.muteIcon.src = "assets/mute.svg";
         this.videoElement.muted = true;
     }
 
     unmute() {
-        this.muteIcon.src = "assets/mute.svg";
+        this.muteIcon.src = "assets/unmute.svg";
         this.videoElement.muted = false;
     }
 
