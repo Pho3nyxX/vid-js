@@ -1,605 +1,669 @@
 class VideoPlayer {
+	constructor(videoContainerId) {
+		this._videoContainer = document.getElementById(videoContainerId);
+		this.videoElement = ".video";
+		this.playBtn = ".play-pause-btn";
+		this.fullScreenBtn = ".full-screen-btn";
+		this.volumeBtn = ".volume-btn";
+		this.muteIcon = ".mute-icon";
+		this.settingsBtn = ".settings-btn";
+		this.settingsMenu = ".settings-menu";
+		this.playbackSpeedMenu = "#playbackSpeedMenu";
+		this.qualityMenu = "#qualityMenu";
+		this._playbackSpeed = 1;
+		this.currentTimeElement = ".video-current-time";
+		this.videoDurationElement = ".video-duration";
+		this.scrubBar = ".scrub-bar";
+		this.progressBar = ".scrub-progress";
+		this.progressHandle = ".scrub-circle";
+		this.volumeScrubBar = ".volume-scrub-bar";
+		this.volumeProgressBar = ".volume-scrub-progress";
+		this.volumeProgressHandle = ".volume-scrub-circle";
+		this.volumeScrubContainer = ".volume-scrub-container";
 
-    constructor(videoContainerId) {
-        this._videoContainer = document.getElementById(videoContainerId);
-        this.videoElement = ".video";
-        this.playBtn = ".play-pause-btn";
-        this.fullScreenBtn = ".full-screen-btn";
-        this.volumeBtn = ".volume-btn";
-        this.muteIcon = ".mute-icon";
-        this.settingsBtn = ".settings-btn";
-        this.settingsMenu = ".settings-menu";
-        this.playbackSpeedMenu = "#playbackSpeedMenu";
-        this.qualityMenu = "#qualityMenu";
-        this._playbackSpeed = 1;
-        this.currentTimeElement = ".video-current-time";
-        this.videoDurationElement = ".video-duration";
-        this.scrubBar = ".scrub-bar";
-        this.progressBar = ".scrub-progress";
-        this.progressHandle = ".scrub-circle";
-        this.volumeScrubBar = ".volume-scrub-bar";
-        this.volumeProgressBar = ".volume-scrub-progress";
-        this.volumeProgressHandle = ".volume-scrub-circle";
-        this.volumeScrubContainer = ".volume-scrub-container";
+		this.videoDurationElement.innerHTML = this.convertSecondsToString(
+			this.videoElement.duration
+		);
 
-        this.videoDurationElement.innerHTML = this.convertSecondsToString(this.videoElement.duration);
+		this.setUpEvents();
+	}
 
-        this.setUpEvents();
-    }
+	get videoContainer() {
+		return this._videoContainer;
+	}
 
-    get videoContainer() {
-        return this._videoContainer;
-    }
+	get videoElement() {
+		return this._videoElement;
+	}
 
-    get videoElement() {
-        return this._videoElement;
-    }
+	set videoElement(selector) {
+		let vidElement = this.videoContainer.querySelector(selector);
+		if (vidElement) {
+			this._videoElement = vidElement;
+			this._videoElement.removeAttribute("controls");
+		} else {
+			console.error("Video not found.");
+		}
+	}
 
-    set videoElement(selector) {
-        let vidElement = this.videoContainer.querySelector(selector);
-        if (vidElement) {
-            this._videoElement = vidElement;
-            this._videoElement.removeAttribute("controls");
-        } else {
-            console.error("Video not found.");
-        }
-    }
+	get playBtn() {
+		return this._playBtn;
+	}
 
-    get playBtn() {
-        return this._playBtn;
-    }
+	set playBtn(selector) {
+		let btn = this.videoContainer.querySelector(selector);
+		if (btn) {
+			this._playBtn = btn;
+		} else {
+			console.error("Play button not found.");
+		}
+	}
 
-    set playBtn(selector) {
-        let btn = this.videoContainer.querySelector(selector);
-        if (btn) {
-            this._playBtn = btn;
-        } else {
-            console.error("Play button not found.");
-        }
-    }
+	get fullScreenBtn() {
+		return this._fullScreenBtn;
+	}
 
-    get fullScreenBtn() {
-        return this._fullScreenBtn;
-    }
+	set fullScreenBtn(selector) {
+		let btn = this.videoContainer.querySelector(selector);
+		if (btn) {
+			this._fullScreenBtn = btn;
+		} else {
+			console.error("Cannot enter full screen.");
+		}
+	}
 
-    set fullScreenBtn(selector) {
-        let btn = this.videoContainer.querySelector(selector);
-        if (btn) {
-            this._fullScreenBtn = btn;
-        } else {
-            console.error("Cannot enter full screen.");
-        }
-    }
+	get volumeBtn() {
+		return this._volumeBtn;
+	}
 
-    get volumeBtn() {
-        return this._volumeBtn;
-    }
+	set volumeBtn(selector) {
+		let btn = this.videoContainer.querySelector(selector);
+		if (btn) {
+			this._volumeBtn = btn;
+		} else {
+			console.error("Cannot adjust video volume");
+		}
+	}
 
-    set volumeBtn(selector) {
-        let btn = this.videoContainer.querySelector(selector);
-        if (btn) {
-            this._volumeBtn = btn;
-        } else {
-            console.error("Cannot adjust video volume");
-        }
-    }
+	get muteIcon() {
+		return this._muteIcon;
+	}
 
-    get muteIcon() {
-        return this._muteIcon;
-    }
+	set muteIcon(selector) {
+		let btn = this.videoContainer.querySelector(selector);
+		if (btn) {
+			this._muteIcon = btn;
+		} else {
+			console.error("Cannot mute video");
+		}
+	}
 
-    set muteIcon(selector) {
-        let btn = this.videoContainer.querySelector(selector);
-        if (btn) {
-            this._muteIcon = btn;
-        } else {
-            console.error("Cannot mute video");
-        }
-    }
+	get settingsBtn() {
+		return this._settingsBtn;
+	}
 
-    get settingsBtn() {
-        return this._settingsBtn;
-    }
+	set settingsBtn(selector) {
+		let btn = this.videoContainer.querySelector(selector);
+		if (btn) {
+			this._settingsBtn = btn;
+		} else {
+			console.error("Cannot open settings");
+		}
+	}
 
-    set settingsBtn(selector) {
-        let btn = this.videoContainer.querySelector(selector);
-        if (btn) {
-            this._settingsBtn = btn;
-        } else {
-            console.error("Cannot open settings");
-        }
-    }
+	get settingsMenu() {
+		return this._settingsMenu;
+	}
 
-    get settingsMenu() {
-        return this._settingsMenu;
-    }
+	set settingsMenu(selector) {
+		let btn = this.videoContainer.querySelector(selector);
+		if (btn) {
+			this._settingsMenu = btn;
+		} else {
+			console.error("Cannot open settings menu");
+		}
+	}
 
-    set settingsMenu(selector) {
-        let btn = this.videoContainer.querySelector(selector);
-        if (btn) {
-            this._settingsMenu = btn;
-        } else {
-            console.error("Cannot open settings menu");
-        }
-    }
+	get playbackSpeed() {
+		return this._playbackSpeed;
+	}
 
-    get playbackSpeed() {
-        return this._playbackSpeed;
-    }
+	set playbackSpeed(value) {
+		this.updatedPlaybackSpeedMenu(value);
+		this._playbackSpeed = value;
+		this.updatePlaybackSpeed();
+	}
 
-    set playbackSpeed(value) {
-        this.updatedPlaybackSpeedMenu(value)
-        this._playbackSpeed = value;
-        this.updatePlaybackSpeed();
-    }
+	get playbackSpeedMenu() {
+		return this._playbackSpeedMenu;
+	}
 
-    get playbackSpeedMenu() {
-        return this._playbackSpeedMenu;
-    }
+	set playbackSpeedMenu(selector) {
+		let playbackMenu = this.videoContainer.querySelector(selector);
+		if (playbackMenu) {
+			this._playbackSpeedMenu = playbackMenu;
+		} else {
+			console.error("Cannot open playback speed menu");
+		}
+	}
 
-    set playbackSpeedMenu(selector) {
-        let playbackMenu = this.videoContainer.querySelector(selector);
-        if (playbackMenu) {
-            this._playbackSpeedMenu = playbackMenu;
-        } else {
-            console.error("Cannot open playback speed menu");
-        }
-    }
+	get qualityMenu() {
+		return this._qualityMenu;
+	}
 
-    get qualityMenu() {
-        return this._qualityMenu;
-    }
+	set qualityMenu(selector) {
+		let quality = this.videoContainer.querySelector(selector);
+		if (quality) {
+			this._qualityMenu = quality;
+		} else {
+			console.error("Cannot open quality menu");
+		}
+	}
 
-    set qualityMenu(selector) {
-        let quality = this.videoContainer.querySelector(selector);
-        if (quality) {
-            this._qualityMenu = quality;
-        } else {
-            console.error("Cannot open quality menu");
-        }
-    }
+	get videoDurationElement() {
+		return this._videoDurationElement;
+	}
 
-    get videoDurationElement() {
-        return this._videoDurationElement;
-    }
+	set videoDurationElement(selector) {
+		let vidTime = this.videoContainer.querySelector(selector);
+		if (vidTime) {
+			this._videoDurationElement = vidTime;
+		} else {
+			console.error("Cannot view video time");
+		}
+	}
 
-    set videoDurationElement(selector) {
-        let vidTime = this.videoContainer.querySelector(selector);
-        if (vidTime) {
-            this._videoDurationElement = vidTime;
-        } else {
-            console.error("Cannot view video time");
-        }
-    }
+	get currentTimeElement() {
+		return this._currentTimeElement;
+	}
 
-    get currentTimeElement() {
-        return this._currentTimeElement;
-    }
+	set currentTimeElement(selector) {
+		let vidTime = this.videoContainer.querySelector(selector);
+		if (vidTime) {
+			this._currentTimeElement = vidTime;
+		} else {
+			console.error("Cannot view video current time");
+		}
+	}
 
-    set currentTimeElement(selector) {
-        let vidTime = this.videoContainer.querySelector(selector);
-        if (vidTime) {
-            this._currentTimeElement = vidTime;
-        } else {
-            console.error("Cannot view video current time");
-        }
-    }
+	get progressBar() {
+		return this._progressBar;
+	}
 
-    get progressBar() {
-        return this._progressBar;
-    }
+	set progressBar(selector) {
+		let proBar = this.videoContainer.querySelector(selector);
+		if (proBar) {
+			this._progressBar = proBar;
+		} else {
+			console.error("Cannot view progress bar");
+		}
+	}
 
-    set progressBar(selector) {
-        let proBar = this.videoContainer.querySelector(selector);
-        if (proBar) {
-            this._progressBar = proBar;
-        } else {
-            console.error("Cannot view progress bar");
-        }
-    }
+	get progressHandle() {
+		return this._progressHandle;
+	}
 
-    get progressHandle() {
-        return this._progressHandle;
-    }
+	set progressHandle(selector) {
+		let proHandle = this.videoContainer.querySelector(selector);
+		if (proHandle) {
+			this._progressHandle = proHandle;
+		} else {
+			console.error("Cannot view progress handle");
+		}
+	}
 
-    set progressHandle(selector) {
-        let proHandle = this.videoContainer.querySelector(selector);
-        if (proHandle) {
-            this._progressHandle = proHandle;
-        } else {
-            console.error("Cannot view progress handle");
-        }
-    }
+	get scrubBar() {
+		return this._scrubBar;
+	}
 
-    get scrubBar() {
-        return this._scrubBar;
-    }
+	set scrubBar(selector) {
+		let scrubBarLine = this.videoContainer.querySelector(selector);
+		if (scrubBarLine) {
+			this._scrubBar = scrubBarLine;
+		} else {
+			console.error("Cannot load scrub bar");
+		}
+	}
 
-    set scrubBar(selector) {
-        let scrubBarLine = this.videoContainer.querySelector(selector);
-        if (scrubBarLine) {
-            this._scrubBar = scrubBarLine;
-        } else {
-            console.error("Cannot load scrub bar");
-        }
-    }
+	get volumeScrubContainer() {
+		return this._volumeScrubContainer;
+	}
 
-    get volumeScrubContainer() {
-        return this._volumeScrubContainer;
-    }
+	set volumeScrubContainer(selector) {
+		let volScrubContainer = this.videoContainer.querySelector(selector);
+		if (volScrubContainer) {
+			this._volumeScrubContainer = volScrubContainer;
+		} else {
+			console.error("Cannot view container");
+		}
+	}
 
-    set volumeScrubContainer(selector) {
-        let volScrubContainer = this.videoContainer.querySelector(selector);
-        if (volScrubContainer) {
-            this._volumeScrubContainer = volScrubContainer;
-        } else {
-            console.error("Cannot view container");
-        }
-    }
+	get volumeProgressBar() {
+		return this._volumeProgressBar;
+	}
 
-    get volumeProgressBar() {
-        return this._volumeProgressBar;
-    }
+	set volumeProgressBar(selector) {
+		let volumeProBar = this.videoContainer.querySelector(selector);
+		if (volumeProBar) {
+			this._volumeProgressBar = volumeProBar;
+		} else {
+			console.error("Cannot view volume progress bar");
+		}
+	}
 
-    set volumeProgressBar(selector) {
-        let volumeProBar = this.videoContainer.querySelector(selector);
-        if (volumeProBar) {
-            this._volumeProgressBar = volumeProBar;
-        } else {
-            console.error("Cannot view volume progress bar");
-        }
-    }
+	get volumeProgressHandle() {
+		return this._volumeProgressHandle;
+	}
 
-    get volumeProgressHandle() {
-        return this._volumeProgressHandle;
-    }
+	set volumeProgressHandle(selector) {
+		let volumeProHandle = this.videoContainer.querySelector(selector);
+		if (volumeProHandle) {
+			this._volumeProgressHandle = volumeProHandle;
+		} else {
+			console.error("Cannot view volume progress handle");
+		}
+	}
 
-    set volumeProgressHandle(selector) {
-        let volumeProHandle = this.videoContainer.querySelector(selector);
-        if (volumeProHandle) {
-            this._volumeProgressHandle = volumeProHandle;
-        } else {
-            console.error("Cannot view volume progress handle");
-        }
-    }
+	get volumeScrubBar() {
+		return this._volumeScrubBar;
+	}
 
-    get volumeScrubBar() {
-        return this._volumeScrubBar;
-    }
+	set volumeScrubBar(selector) {
+		let volumeScrubBarLine = this.videoContainer.querySelector(selector);
+		if (volumeScrubBarLine) {
+			this._volumeScrubBar = volumeScrubBarLine;
+		} else {
+			console.error("Cannot load volume scrub bar");
+		}
+	}
 
-    set volumeScrubBar(selector) {
-        let volumeScrubBarLine = this.videoContainer.querySelector(selector);
-        if (volumeScrubBarLine) {
-            this._volumeScrubBar = volumeScrubBarLine;
-        } else {
-            console.error("Cannot load volume scrub bar");
-        }
-    }
+	setUpEvents() {
+		this.playBtn.addEventListener("click", this.playPause);
+		this.fullScreenBtn.addEventListener("click", this.FullExitScreen);
+		this.muteIcon.addEventListener("click", this.MuteUnmute);
+		this.settingsBtn.addEventListener("click", this.toggleSettingBtn);
+		this.settingsMenu.addEventListener("click", this.toggleMenuItem);
+		this.playbackSpeedMenu.addEventListener("click", this.clickedSpeed);
+		this.videoElement.addEventListener("play", this.videoPlay);
+		this.videoElement.addEventListener("pause", this.videoPause);
+		this.videoElement.addEventListener("click", this.playPause);
+		document.addEventListener("keydown", this.keyboardShortcuts);
+		this.progressHandle.addEventListener(
+			"mousedown",
+			this.progressHandleDownMousePress
+		);
+		this.videoElement.addEventListener("seeked", this.seekEventListener);
+		this.videoElement.addEventListener("loadedmetadata", this.metaDataLoaded);
+		this.scrubBar.addEventListener("click", this.scrubBarPress);
+		this.volumeProgressHandle.addEventListener(
+			"mousedown",
+			this.volumeProgressHandleDownMousePress
+		);
+	}
 
-    setUpEvents() {
-        this.playBtn.addEventListener("click", this.playPause);
-        this.fullScreenBtn.addEventListener("click", this.FullExitScreen);
-        this.muteIcon.addEventListener("click", this.MuteUnmute);
-        this.settingsBtn.addEventListener("click", this.toggleSettingBtn);
-        this.settingsMenu.addEventListener("click", this.toggleMenuItem);
-        this.playbackSpeedMenu.addEventListener("click", this.clickedSpeed);
-        this.videoElement.addEventListener("play", this.videoPlay);
-        this.videoElement.addEventListener("pause", this.videoPause);
-        this.videoElement.addEventListener("click", this.playPause);
-        document.addEventListener("keydown", this.keyboardShortcuts);
-        this.progressHandle.addEventListener("mousedown", this.progressHandleDownMousePress);
-        this.videoElement.addEventListener("seeked", this.seekEventListener);
-        this.videoElement.addEventListener("loadedmetadata", this.metaDataLoaded);
-        this.scrubBar.addEventListener("click", this.scrubBarPress);
-        this.volumeProgressHandle.addEventListener("mousedown", this.volumeProgressHandleDownMousePress);
-    }
+	playPause = (e) => {
+		if (this.videoElement.paused) {
+			this.play();
+		} else {
+			this.pause();
+		}
+	};
 
-    playPause = (e) => {
-        if (this.videoElement.paused) {
-            this.play();
-        } else {
-            this.pause();
-        }
-    }
+	play() {
+		this.videoElement.play();
+		let playBtnIcon = this.playBtn.querySelector("img");
+		playBtnIcon.src = "assets/pause.svg";
+	}
 
-    play() {
-        this.videoElement.play();
-        let playBtnIcon = this.playBtn.querySelector("img");
-        playBtnIcon.src = "assets/pause.svg";
-    }
-    
-    pause() {
-        this.videoElement.pause();
-        let playBtnIcon = this.playBtn.querySelector("img");
-        playBtnIcon.src = "assets/play.svg";
-    }
+	pause() {
+		this.videoElement.pause();
+		let playBtnIcon = this.playBtn.querySelector("img");
+		playBtnIcon.src = "assets/play.svg";
+	}
 
-    fullsreen() {
-        this.videoContainer.classList.add("fullscreen");
-        this.videoContainer.requestFullscreen();
-        let fullscreenBtnIcon = this.fullScreenBtn.querySelector("img");
-        fullscreenBtnIcon.src = "assets/fullscreen-exit.svg";
-    }
-    
-    exitFullscreen() {
-        this.videoContainer.classList.remove("fullscreen");
-        document.exitFullscreen()
-        let fullscreenBtnIcon = this.fullScreenBtn.querySelector("img");
-        fullscreenBtnIcon.src = "assets/fullscreen.svg";
-    }
+	fullsreen() {
+		this.videoContainer.classList.add("fullscreen");
+		this.videoContainer.requestFullscreen();
+		let fullscreenBtnIcon = this.fullScreenBtn.querySelector("img");
+		fullscreenBtnIcon.src = "assets/fullscreen-exit.svg";
+	}
 
-    FullExitScreen = (e) => {
-        this.toggleFullScreen();
-    }
+	exitFullscreen() {
+		this.videoContainer.classList.remove("fullscreen");
+		document.exitFullscreen();
+		let fullscreenBtnIcon = this.fullScreenBtn.querySelector("img");
+		fullscreenBtnIcon.src = "assets/fullscreen.svg";
+	}
 
-    toggleFullScreen() {
-        if (document.fullscreenElement) {
-            this.exitFullscreen();
-        } else {
-            this.fullsreen();
-        }
-    }
+	FullExitScreen = (e) => {
+		this.toggleFullScreen();
+	};
 
-    MuteUnmute = (e) => {
-        if (this.videoElement.muted) {
-            this.unmute();
-        } else {
-            this.mute();
-        }
-    }
+	toggleFullScreen() {
+		if (document.fullscreenElement) {
+			this.exitFullscreen();
+		} else {
+			this.fullsreen();
+		}
+	}
 
-    mute() {
-        this.muteIcon.src = "assets/mute.svg";
-        this.videoElement.muted = true;
-    }
+	MuteUnmute = (e) => {
+		if (this.videoElement.muted) {
+			this.unmute();
+		} else {
+			this.mute();
+		}
+	};
 
-    unmute() {
-        this.muteIcon.src = "assets/unmute.svg";
-        this.videoElement.muted = false;
-    }
+	mute() {
+		this.muteIcon.src = "assets/mute.svg";
+		this.videoElement.muted = true;
+	}
 
-    toggleSettingBtn = (e) => {
-        this.settingsMenu.classList.toggle("active");
-    }
+	unmute() {
+		this.muteIcon.src = "assets/unmute.svg";
+		this.videoElement.muted = false;
+	}
 
-    toggleMenuItem = (e) => {
-        if (e.target.closest('.menu-item-link')) {
-            let menuItem = e.target.closest('.menu-item');
-            if (menuItem) {
-                menuItem.classList.toggle("active");
+	toggleSettingBtn = (e) => {
+		this.settingsMenu.classList.toggle("active");
+	};
 
-                let menuItems = this.videoContainer.querySelectorAll('.menu-item');
-                menuItems.forEach(item => {
-                    if (item !== menuItem) {
-                        item.classList.toggle("hide");
-                    }
-                })
+	toggleMenuItem = (e) => {
+		if (e.target.closest(".menu-item-link")) {
+			let menuItem = e.target.closest(".menu-item");
+			let subMenu = menuItem.querySelector(".sub-menu");
+
+			if (menuItem) {
+				menuItem.classList.toggle("active");
+				subMenu.classList.toggle("active");
+
+				let menuItems = this.videoContainer.querySelectorAll(".menu-item");
+
+				menuItems.forEach((item) => {
+					if (item !== menuItem) {
+						item.classList.toggle("hide");
+					}
+				});
+			}
+		}
+	};
+
+	playbackSpeedClick = (e) => {
+		let newSpeed = e.target.dataset.value;
+		this.playbackSpeed = newSpeed;
+	};
+
+	updatePlaybackSpeed() {
+		this.videoElement.playbackRate = parseFloat(this.playbackSpeed);
+	}
+
+	updatedPlaybackSpeedMenu(newSpeed) {
+		if (this.playbackSpeed !== newSpeed) {
+
+			let currentSpeedEl = this.videoContainer.querySelector(
+				"a[data-value='" + this.playbackSpeed + "']"
+			);
+
+			currentSpeedEl.innerHTML = this.playbackSpeed;
+
+			let newSpeedEl = this.videoContainer.querySelector(
+				"a[data-value='" + newSpeed + "']"
+			);
+
+            let playbackSpeedView = this.videoContainer.querySelector('.menu-item:first-child span:last-child');
+
+            playbackSpeedView.innerHTML = newSpeed + `<img src="assets/right.svg" alt="right" width="15px" height="20px"/>`;
+
+			newSpeedEl.innerHTML =
+				`<img src="assets/tick.svg" alt="tick" />` + newSpeed;
+		}
+	}
+
+	checkVideoNearEnd(self) {
+		let event = new Event("videonearend", {
+			bubbles: false,
+			cancelable: false,
+		});
+		self.videoElement.dispatchEvent(event);
+
+		clearTimeout(self.videoEndTimer);
+		return true;
+	}
+
+	setVideoEndTimer() {
+		let timeOut =
+			parseInt(
+				this.videoElement.duration - this.videoElement.currentTime - 12
+			) * 1000;
+		this.videoEndTimer = setTimeout(this.checkVideoNearEnd, timeOut, this);
+	}
+
+	clickedSpeed = (e) => {
+		if (e.target.tagName.toLowerCase() == "a") {
+			let newSpeed = e.target.dataset.value;
+			this.playbackSpeed = newSpeed;
+
+			let previousActive = e.target.closest('.sub-menu').querySelector('li a.active');
+
+            if(previousActive){
+                previousActive.classList.remove("active");
             }
-        }
-    }
+			e.target.classList.add("active");
+		}
+	};
 
-    playbackSpeedClick = (e) => {
-        let newSpeed = e.target.dataset.value;
-        this.playbackSpeed = newSpeed;
-    }
+	convertSecondsToString(givenSeconds) {
+		let date = new Date(parseInt(givenSeconds * 1000));
+		let hours = date.getUTCHours();
+		let minutes = date.getUTCMinutes();
+		let seconds = date.getSeconds();
+		let timeString = "";
+		if (hours > 0) {
+			timeString = hours.toString().padStart(2, "0") + ":";
+		}
 
-    updatePlaybackSpeed() {
-        this.videoElement.playbackRate = parseFloat(this.playbackSpeed);
-    }
+		timeString =
+			minutes.toString().padStart(2, "0") +
+			":" +
+			seconds.toString().padStart(2, "0");
 
-    updatedPlaybackSpeedMenu(newSpeed) {
-        if (this.playbackSpeed !== newSpeed) {
-            let currentSpeedEl = this.videoContainer.querySelector("a[data-value='" + this.playbackSpeed + "']");
-            currentSpeedEl.innerHTML = this.playbackSpeed;
-            let newSpeedEl = this.videoContainer.querySelector("a[data-value='" + newSpeed + "']");
+		return timeString;
+	}
 
-            newSpeedEl.innerHTML = `<img src="assets/tick.svg" alt="tick" />` + newSpeed;
-        }
-    }
+	seekEventListener = (e) => {
+		this.updateCurrentTime(this);
+	};
 
-    checkVideoNearEnd(self) {
-        let event = new Event("videonearend", { bubbles: false, cancelable: false });
-        self.videoElement.dispatchEvent(event);
+	updateCurrentTime(self) {
+		if (!self) {
+			self = this;
+		}
+		self.currentTimeElement.innerHTML = self.convertSecondsToString(
+			self.videoElement.currentTime
+		);
+	}
 
-        clearTimeout(self.videoEndTimer);
-        return true;
-    }
+	videoPlay = (e) => {
+		this.currentTimeInterval = setInterval(this.updateCurrentTime, 1000, this);
+		this.progressBarTimer = setInterval(this.updateProgressBar, 16, this);
+		this.setVideoEndTimer();
+	};
 
-    setVideoEndTimer() {
-        let timeOut = parseInt((this.videoElement.duration - this.videoElement.currentTime) - 12) * 1000;
-        this.videoEndTimer = setTimeout(this.checkVideoNearEnd, timeOut, this);
-    }
+	videoPause = (e) => {
+		clearInterval(this.currentTimeInterval);
+		clearInterval(this.progressBarTimer);
+		clearTimeout(this.videoEndTimer);
+	};
 
-    clickedSpeed = (e) => {
-        if (e.target.tagName.toLowerCase() == "a") {
-            let newSpeed = e.target.dataset.value;
-            this.playbackSpeed = newSpeed;
-        }
-    }
+	updateProgressBar(self) {
+		let currentVideoTime = self.videoElement.currentTime;
+		let videoDuration = self.videoElement.duration;
+		let percentageTime = (currentVideoTime / videoDuration) * 100;
 
-    convertSecondsToString(givenSeconds) {
-        let date = new Date(parseInt(givenSeconds * 1000));
-        let hours = date.getUTCHours();
-        let minutes = date.getUTCMinutes();
-        let seconds = date.getSeconds();
-        let timeString = "";
-        if (hours > 0) {
-            timeString = hours.toString().padStart(2, '0') + ':';
-        }
+		self.progressBar.style.width = percentageTime + "%";
+		self.progressHandle.style.left = percentageTime + "%";
+	}
 
-        timeString = minutes.toString().padStart(2, '0') + ':' +
-            seconds.toString().padStart(2, '0');
+	keyboardShortcuts = (e) => {
+		if (e.code == "Space") {
+			e.preventDefault();
+			this.playPause(e);
+		}
+		if (e.code == "KeyK") {
+			e.preventDefault();
+			this.playPause(e);
+		}
+		if (e.code == "KeyF") {
+			e.preventDefault();
+			this.FullExitScreen(e);
+		}
+		if (e.code == "KeyM") {
+			e.preventDefault();
+			this.MuteUnmute(e);
+		}
+		if (e.code == "ArrowRight") {
+			e.preventDefault();
+			this.videoElement.currentTime = this.videoElement.currentTime + 5;
+			this.currentTimeElement.innerHTML = this.convertSecondsToString(
+				this.videoElement.currentTime
+			);
+			this.updateProgressBar(this);
+		}
+		if (e.code == "ArrowLeft") {
+			e.preventDefault();
+			this.videoElement.currentTime = this.videoElement.currentTime - 5;
+			this.currentTimeElement.innerHTML = this.convertSecondsToString(
+				this.videoElement.currentTime
+			);
+			this.updateProgressBar(this);
+		}
+		if (e.code == "KeyJ") {
+			e.preventDefault();
+			this.videoElement.currentTime = this.videoElement.currentTime + 10;
+			this.currentTimeElement.innerHTML = this.convertSecondsToString(
+				this.videoElement.currentTime
+			);
+			this.updateProgressBar(this);
+		}
+		if (e.code == "KeyL") {
+			e.preventDefault();
+			this.videoElement.currentTime = this.videoElement.currentTime - 10;
+			this.currentTimeElement.innerHTML = this.convertSecondsToString(
+				this.videoElement.currentTime
+			);
+			this.updateProgressBar(this);
+		}
+		if (e.code == "Numpad0") {
+			e.preventDefault();
+			this.videoElement.currentTime = 0;
+			this.currentTimeElement.innerHTML = this.convertSecondsToString(
+				this.videoElement.currentTime
+			);
+			this.updateProgressBar(this);
+		}
+		if (e.code == "Digit0") {
+			e.preventDefault();
+			this.videoElement.currentTime = 0;
+			this.currentTimeElement.innerHTML = this.convertSecondsToString(
+				this.videoElement.currentTime
+			);
+			this.updateProgressBar(this);
+		}
+	};
 
-        return timeString;
-    }
+	progressHandleDownMousePress = (e) => {
+		e.preventDefault();
+		document.addEventListener("mousemove", this.scrubVideo);
+		document.addEventListener("mouseup", this.endScrub);
+	};
 
-    seekEventListener = (e) => {
-        this.updateCurrentTime(this);
-    }
+	scrubVideo = (e) => {
+		e.preventDefault();
 
-    updateCurrentTime(self) {
-        if (!self) {
-            self = this;
-        };
-        self.currentTimeElement.innerHTML = self.convertSecondsToString(self.videoElement.currentTime);
-    }
+		let containerWidth = this.videoContainer.getBoundingClientRect().width;
+		let progressBarWidth = this.progressBar.getBoundingClientRect().width;
 
-    videoPlay = (e) => {
-        this.currentTimeInterval = setInterval(this.updateCurrentTime, 1000, this);
-        this.progressBarTimer = setInterval(this.updateProgressBar, 16, this);
-        this.setVideoEndTimer();
-    }
+		let movementFractional = e.movementX / containerWidth;
+		let progressBarWidthFractional = progressBarWidth / containerWidth;
 
-    videoPause = (e) => {
-        clearInterval(this.currentTimeInterval);
-        clearInterval(this.progressBarTimer);
-        clearTimeout(this.videoEndTimer);
-    }
+		let newVideoTime =
+			this.videoElement.duration *
+			(movementFractional + progressBarWidthFractional);
 
-    updateProgressBar(self) {
-        let currentVideoTime = self.videoElement.currentTime;
-        let videoDuration = self.videoElement.duration;
-        let percentageTime = (currentVideoTime / videoDuration) * 100;
+		let totalPercent = (
+			(movementFractional + progressBarWidthFractional) *
+			100
+		).toFixed(2);
 
-        self.progressBar.style.width = percentageTime + "%";
-        self.progressHandle.style.left = percentageTime + "%";
-    }
+		this.progressBar.style.width = totalPercent + "%";
+		this.progressHandle.style.left = totalPercent + "%";
 
-    keyboardShortcuts = (e) => {
-        if (e.code == 'Space') {
-            e.preventDefault();
-            this.playPause(e);
-        }
-        if (e.code == 'KeyK') {
-            e.preventDefault();
-            this.playPause(e);
-        }
-        if (e.code == 'KeyF') {
-            e.preventDefault();
-            this.FullExitScreen(e);
-        }
-        if (e.code == 'KeyM') {
-            e.preventDefault();
-            this.MuteUnmute(e);
-        }
-        if (e.code == 'ArrowRight') {
-            e.preventDefault();
-            this.videoElement.currentTime = this.videoElement.currentTime + 5;
-            this.currentTimeElement.innerHTML = this.convertSecondsToString(this.videoElement.currentTime);
-            this.updateProgressBar(this);
-        }
-        if (e.code == 'ArrowLeft') {
-            e.preventDefault();
-            this.videoElement.currentTime = this.videoElement.currentTime - 5;
-            this.currentTimeElement.innerHTML = this.convertSecondsToString(this.videoElement.currentTime);
-            this.updateProgressBar(this);
-        }
-        if (e.code == 'KeyJ') {
-            e.preventDefault();
-            this.videoElement.currentTime = this.videoElement.currentTime + 10;
-            this.currentTimeElement.innerHTML = this.convertSecondsToString(this.videoElement.currentTime);
-            this.updateProgressBar(this);
-        }
-        if (e.code == 'KeyL') {
-            e.preventDefault();
-            this.videoElement.currentTime = this.videoElement.currentTime - 10;
-            this.currentTimeElement.innerHTML = this.convertSecondsToString(this.videoElement.currentTime);
-            this.updateProgressBar(this);
-        }
-        if (e.code == 'Numpad0') {
-            e.preventDefault();
-            this.videoElement.currentTime = 0;
-            this.currentTimeElement.innerHTML = this.convertSecondsToString(this.videoElement.currentTime);
-            this.updateProgressBar(this);
-        }
-        if (e.code == 'Digit0') {
-            e.preventDefault();
-            this.videoElement.currentTime = 0;
-            this.currentTimeElement.innerHTML = this.convertSecondsToString(this.videoElement.currentTime);
-            this.updateProgressBar(this);
-        }
-    }
+		this.videoElement.currentTime = newVideoTime;
+	};
 
-    progressHandleDownMousePress = (e) => {
-        e.preventDefault();
-        document.addEventListener("mousemove", this.scrubVideo);
-        document.addEventListener("mouseup", this.endScrub);
-    }
+	endScrub = (e) => {
+		document.removeEventListener("mousemove", this.scrubVideo);
+		if (!(this.videoElement.paused || this.videoElement.ended)) {
+			clearTimeout(this.videoEndTimer);
+			this.setVideoEndTimer();
+		}
+	};
 
-    scrubVideo = (e) => {
-        e.preventDefault();
+	metaDataLoaded = (e) => {};
 
-        let containerWidth = this.videoContainer.getBoundingClientRect().width;
-        let progressBarWidth = this.progressBar.getBoundingClientRect().width;
+	scrubBarPress = (e) => {
+		let containerWidth = this.videoContainer.getBoundingClientRect().width;
 
-        let movementFractional = (e.movementX / containerWidth);
-        let progressBarWidthFractional = (progressBarWidth / containerWidth);
+		let offsetFractional = e.offsetX / containerWidth;
 
-        let newVideoTime = this.videoElement.duration * (movementFractional + progressBarWidthFractional);
+		let newVideoTime = this.videoElement.duration * offsetFractional;
 
-        let totalPercent = ((movementFractional + progressBarWidthFractional) * 100).toFixed(2);
+		let totalPercent = (offsetFractional * 100).toFixed(2);
 
-        this.progressBar.style.width = totalPercent + "%";
-        this.progressHandle.style.left = totalPercent + "%";
+		this.progressBar.style.width = totalPercent + "%";
+		this.progressHandle.style.left = totalPercent + "%";
 
-        this.videoElement.currentTime = newVideoTime;
-    }
+		this.videoElement.currentTime = newVideoTime;
+	};
 
-    endScrub = (e) => {
-        document.removeEventListener("mousemove", this.scrubVideo);
-        if (!(this.videoElement.paused || this.videoElement.ended)) {
-            clearTimeout(this.videoEndTimer);
-            this.setVideoEndTimer();
-        }
-    }
+	volumeProgressHandleDownMousePress = (e) => {
+		e.preventDefault();
+		document.addEventListener("mousemove", this.scrubVolume);
+		document.addEventListener("mouseup", this.endScrubVolume);
+	};
 
-    metaDataLoaded = (e) => {
-    }
+	scrubVolume = (e) => {
+		e.preventDefault();
 
-    scrubBarPress = (e) => {
-        let containerWidth = this.videoContainer.getBoundingClientRect().width;
+		let volumeScrubContainerWidth =
+			this.volumeScrubContainer.getBoundingClientRect().width;
+		let volumeProgressBarWidth =
+			this.volumeProgressBar.getBoundingClientRect().width;
 
-        let offsetFractional = (e.offsetX / containerWidth);
+		let movementFractional = e.movementX / volumeScrubContainerWidth;
+		let volumeProgressBarWidthFractional =
+			volumeProgressBarWidth / volumeScrubContainerWidth;
 
-        let newVideoTime = this.videoElement.duration * offsetFractional;
+		console.log(volumeProgressBarWidthFractional);
+		let newVolume =
+			this.videoElement.volume *
+			(movementFractional + volumeProgressBarWidthFractional);
 
-        let totalPercent = (offsetFractional * 100).toFixed(2);
+		let totalPercent = (
+			(movementFractional + volumeProgressBarWidthFractional) *
+			100
+		).toFixed(2);
 
-        this.progressBar.style.width = totalPercent + "%";
-        this.progressHandle.style.left = totalPercent + "%";
+		this.volumeProgressBar.style.width = totalPercent + "%";
+		this.volumeProgressHandle.style.left = totalPercent + "%";
 
-        this.videoElement.currentTime = newVideoTime;
-    }
+		this.videoElement.volume = newVolume;
+		console.log(this.videoElement.volume);
+	};
 
-    volumeProgressHandleDownMousePress = (e) => {
-        e.preventDefault();
-        document.addEventListener("mousemove", this.scrubVolume);
-        document.addEventListener("mouseup", this.endScrubVolume);
-    }
-
-    scrubVolume = (e) => {
-        e.preventDefault();
-
-        let volumeScrubContainerWidth = this.volumeScrubContainer.getBoundingClientRect().width;
-        let volumeProgressBarWidth = this.volumeProgressBar.getBoundingClientRect().width;
-
-        let movementFractional = (e.movementX / volumeScrubContainerWidth);
-        let volumeProgressBarWidthFractional = (volumeProgressBarWidth / volumeScrubContainerWidth);
-
-        console.log(volumeProgressBarWidthFractional);
-        let newVolume = this.videoElement.volume * (movementFractional + volumeProgressBarWidthFractional);
-
-        let totalPercent = ((movementFractional + volumeProgressBarWidthFractional) * 100).toFixed(2);
-
-        this.volumeProgressBar.style.width = totalPercent + "%";
-        this.volumeProgressHandle.style.left = totalPercent + "%";
-
-        this.videoElement.volume = newVolume;
-        console.log(this.videoElement.volume);
-    }
-
-    endScrubVolume = (e) => {
-        document.removeEventListener("mousemove", this.scrubVolume);
-    }
+	endScrubVolume = (e) => {
+		document.removeEventListener("mousemove", this.scrubVolume);
+	};
 }
 export { VideoPlayer };

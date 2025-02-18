@@ -1,17 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-  <title>close-caption</title>
-  <g id="Layer_2" data-name="Layer 2">
-    <g id="invisible_box" data-name="invisible box">
-      <rect width="48" height="48" fill="none"/>
+
+<svg
+   width="20px"
+   height="20px"
+   viewBox="0 0 48 48"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="close-caption.svg"
+   inkscape:version="1.4 (1:1.4+202410161351+e7c3feb100)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="41.75"
+     inkscape:cx="10.011976"
+     inkscape:cy="10"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g3" />
+  <title
+     id="title1">close-caption</title>
+  <g
+     id="Layer_2"
+     data-name="Layer 2">
+    <g
+       id="invisible_box"
+       data-name="invisible box">
+      <rect
+         width="48"
+         height="48"
+         fill="none"
+         id="rect1" />
     </g>
-    <g id="icons_Q2" data-name="icons Q2">
-      <g>
-        <path d="M14,31h6a2.9,2.9,0,0,0,3-3V26H19v1H15V21h4v1h4V20a2.9,2.9,0,0,0-3-3H14a2.9,2.9,0,0,0-3,3v8A2.9,2.9,0,0,0,14,31Z"/>
-        <path d="M28,31h6a2.9,2.9,0,0,0,3-3V26H33v1H29V21h4v1h4V20a2.9,2.9,0,0,0-3-3H28a2.9,2.9,0,0,0-3,3v8A2.9,2.9,0,0,0,28,31Z"/>
-        <path d="M44,9H4a2,2,0,0,0-2,2V37a2,2,0,0,0,2,2H44a2,2,0,0,0,2-2V11A2,2,0,0,0,44,9ZM42,35H6V13H42Z"/>
+    <g
+       id="icons_Q2"
+       data-name="icons Q2">
+      <g
+         id="g3">
+        <path
+           d="M14,31h6a2.9,2.9,0,0,0,3-3V26H19v1H15V21h4v1h4V20a2.9,2.9,0,0,0-3-3H14a2.9,2.9,0,0,0-3,3v8A2.9,2.9,0,0,0,14,31Z"
+           id="path1"
+           style="fill:#ffffff" />
+        <path
+           d="M28,31h6a2.9,2.9,0,0,0,3-3V26H33v1H29V21h4v1h4V20a2.9,2.9,0,0,0-3-3H28a2.9,2.9,0,0,0-3,3v8A2.9,2.9,0,0,0,28,31Z"
+           id="path2"
+           style="fill:#ffffff" />
+        <path
+           d="M 44,9 H 4 C 2.8954305,9 2,9.8954305 2,11 v 26 c 0,1.104569 0.8954305,2 2,2 h 40 c 1.104569,0 2,-0.895431 2,-2 V 11 C 46,9.8954305 45.104569,9 44,9 Z M 42,35 H 6 V 13 h 36 z"
+           id="path3"
+           style="stroke-width:0.72;stroke-dasharray:none;fill:#ffffff"
+           sodipodi:nodetypes="sssssssssccccc" />
       </g>
     </g>
   </g>
