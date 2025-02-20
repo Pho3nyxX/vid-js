@@ -27,22 +27,23 @@
 
 		.scrub-container {
 			position: absolute;
-			width: 100%;
+			width: 97%;
 			top: 0;
 			left: 0;
+			margin-left: 10px;
 
 			.scrub-bar {
 				margin: 0;
 				padding: 0;
 				width: 100%;
-				height: 3px;
+				height: 4px;
 				background-color: var(--text);
 				opacity: 0.3;
 				cursor: pointer;
 
 				.scrub-progress {
 					background-color: var(--primary-color);
-					height: 3px;
+					height: 4px;
 					width: 0%;
 				}
 
@@ -51,8 +52,8 @@
 					top: -6px;
 					left: 0;
 					border-radius: 50%;
-					width: 15px;
-					height: 15px;
+					width: 16px;
+					height: 16px;
 					background-color: var(--primary-color);
 				}
 			}
@@ -70,20 +71,84 @@
 
 			.controls {
 				display: flex;
+				position: relative;
 
 				button {
+					position: relative;
 					border: none;
 					background: transparent;
 					cursor: pointer;
+
+					&:hover {
+						.tooltip {
+							visibility: visible;
+							opacity: 1;
+						}
+					}
 				}
 
 				img {
 					margin-right: 10px;
 				}
 
+				.full-screen-btn {
+					img {
+						margin-right: 0;
+					}
+
+					.tooltip{
+						left: -57px;
+
+						&::after {
+							left: 75%;
+						}
+					}
+				}
+
+				.play-pause-btn{
+					.tooltip{
+						left: 0;
+
+						&::after {
+							left: 17%;
+						}
+					}
+				}
+
 				span {
 					color: var(--text);
 				}
+
+				.tooltip {
+					position: absolute;
+                    bottom: 222%;
+					left: -27px;
+                    padding: 4px 6px;
+                    border-radius: 4px;
+                    text-align: center;
+                    z-index: 1;
+                    font-size: 14px;
+                    background: var(--menu-hover);
+                    color: var(--text);
+                    visibility: hidden;
+                    opacity: 0;
+                    transition: opacity 0.3s;
+					text-wrap: nowrap;
+					
+					&::after {
+						content: "";
+						position: absolute;
+						top: 100%;
+						left: 45%;
+						border-width: 5px;
+						border-style: solid;
+						border-color: #8080802c transparent transparent transparent;
+					}
+
+					&.hide{
+						display: none;
+					}
+				}				
 			}
 		}
 
@@ -104,7 +169,7 @@
 				position: relative;
 
 				> a {
-					font-size: 14px;
+					font-size: var(--fs-6);
 
 					.left {
 						display: none;
@@ -149,7 +214,7 @@
 					display: block;
 
 					> a {
-						font-size: 14px;
+						font-size: var(--fs-6);
 						border-bottom: 1px solid #2c2c2ca3;
 
 						.left {
@@ -199,6 +264,8 @@
 						a {
 							padding-left: 30px;
 							padding-right: 30px;
+							font-size: var(--fs-6);
+							font-weight: 500;
 
 							&.active {
 								padding-left: 5px;
@@ -232,6 +299,10 @@
 				span {
 					color: var(--text);
 				}
+			}
+
+			.scrub-container {
+				width: 98%;
 			}
 		}
 	}

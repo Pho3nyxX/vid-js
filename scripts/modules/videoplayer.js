@@ -20,6 +20,7 @@ class VideoPlayer {
 		this.volumeProgressBar = ".volume-scrub-progress";
 		this.volumeProgressHandle = ".volume-scrub-circle";
 		this.volumeScrubContainer = ".volume-scrub-container";
+		this.toolTip = ".tooltip";
 
 		this.videoDurationElement.innerHTML = this.convertSecondsToString(
 			this.videoElement.duration
@@ -277,6 +278,19 @@ class VideoPlayer {
 		}
 	}
 
+	get toolTip() {
+		return this._toolTip;
+	}
+
+	set toolTip(selector) {
+		let toolTipDisplay = this.videoContainer.querySelector(selector);
+		if (toolTipDisplay) {
+			this._toolTip = toolTipDisplay;
+		} else {
+			console.error("Cannot load tooltip");
+		}
+	}
+
 	setUpEvents() {
 		this.playBtn.addEventListener("click", this.playPause);
 		this.fullScreenBtn.addEventListener("click", this.FullExitScreen);
@@ -299,6 +313,8 @@ class VideoPlayer {
 			"mousedown",
 			this.volumeProgressHandleDownMousePress
 		);
+
+		this.videoContainer.addEventListener("click", this.closeSettings)
 	}
 
 	playPause = (e) => {
@@ -313,26 +329,30 @@ class VideoPlayer {
 		this.videoElement.play();
 		let playBtnIcon = this.playBtn.querySelector("img");
 		playBtnIcon.src = "assets/pause.svg";
+		this.toolTip.innerHTML = "Pause (k)";
 	}
 
 	pause() {
 		this.videoElement.pause();
 		let playBtnIcon = this.playBtn.querySelector("img");
 		playBtnIcon.src = "assets/play.svg";
+		this.toolTip.innerHTML = "Play (k)";
 	}
 
-	fullsreen() {
+	fullscreen() {
 		this.videoContainer.classList.add("fullscreen");
 		this.videoContainer.requestFullscreen();
 		let fullscreenBtnIcon = this.fullScreenBtn.querySelector("img");
 		fullscreenBtnIcon.src = "assets/fullscreen-exit.svg";
+		this.toolTip.innerHTML = "Exit Fullscreen (f)";
 	}
-
+	
 	exitFullscreen() {
 		this.videoContainer.classList.remove("fullscreen");
 		document.exitFullscreen();
 		let fullscreenBtnIcon = this.fullScreenBtn.querySelector("img");
 		fullscreenBtnIcon.src = "assets/fullscreen.svg";
+		this.toolTip.innerHTML = "Fullscreen (f)";
 	}
 
 	FullExitScreen = (e) => {
@@ -343,7 +363,7 @@ class VideoPlayer {
 		if (document.fullscreenElement) {
 			this.exitFullscreen();
 		} else {
-			this.fullsreen();
+			this.fullscreen();
 		}
 	}
 
@@ -358,11 +378,13 @@ class VideoPlayer {
 	mute() {
 		this.muteIcon.src = "assets/mute.svg";
 		this.videoElement.muted = true;
+		// this.toolTip.innerHTML = "Mute (m)";
 	}
 
 	unmute() {
 		this.muteIcon.src = "assets/unmute.svg";
 		this.videoElement.muted = false;
+		// this.toolTip.innerHTML = "Unmute (m)";
 	}
 
 	toggleSettingBtn = (e) => {
@@ -400,7 +422,6 @@ class VideoPlayer {
 
 	updatedPlaybackSpeedMenu(newSpeed) {
 		if (this.playbackSpeed !== newSpeed) {
-
 			let currentSpeedEl = this.videoContainer.querySelector(
 				"a[data-value='" + this.playbackSpeed + "']"
 			);
@@ -411,9 +432,13 @@ class VideoPlayer {
 				"a[data-value='" + newSpeed + "']"
 			);
 
-            let playbackSpeedView = this.videoContainer.querySelector('.menu-item:first-child span:last-child');
+			let playbackSpeedView = this.videoContainer.querySelector(
+				".menu-item:first-child span:last-child"
+			);
 
-            playbackSpeedView.innerHTML = newSpeed + `<img src="assets/right.svg" alt="right" width="15px" height="20px"/>`;
+			playbackSpeedView.innerHTML =
+				newSpeed +
+				`<img src="assets/right.svg" alt="right" width="15px" height="20px"/>`;
 
 			newSpeedEl.innerHTML =
 				`<img src="assets/tick.svg" alt="tick" />` + newSpeed;
@@ -440,15 +465,17 @@ class VideoPlayer {
 	}
 
 	clickedSpeed = (e) => {
-		if (e.target.tagName.toLowerCase() == "a") {
+		if (e.target.tagName.toLowerCase() === "a") {
 			let newSpeed = e.target.dataset.value;
 			this.playbackSpeed = newSpeed;
 
-			let previousActive = e.target.closest('.sub-menu').querySelector('li a.active');
+			let previousActive = e.target
+				.closest(".sub-menu")
+				.querySelector("li a.active");
 
-            if(previousActive){
-                previousActive.classList.remove("active");
-            }
+			if (previousActive) {
+				previousActive.classList.remove("active");
+			}
 			e.target.classList.add("active");
 		}
 	};
@@ -506,23 +533,27 @@ class VideoPlayer {
 	}
 
 	keyboardShortcuts = (e) => {
-		if (e.code == "Space") {
+		if (e.code === "Space") {
 			e.preventDefault();
 			this.playPause(e);
 		}
-		if (e.code == "KeyK") {
+		if (e.code === "KeyK") {
 			e.preventDefault();
 			this.playPause(e);
 		}
-		if (e.code == "KeyF") {
+		if (e.code === "KeyF") {
 			e.preventDefault();
 			this.FullExitScreen(e);
 		}
-		if (e.code == "KeyM") {
+		if (e.code === "KeyM") {
 			e.preventDefault();
 			this.MuteUnmute(e);
 		}
-		if (e.code == "ArrowRight") {
+		if (e.code === "KeyS") {
+			e.preventDefault();
+			this.toggleSettingBtn(e)
+		}
+		if (e.code === "ArrowRight") {
 			e.preventDefault();
 			this.videoElement.currentTime = this.videoElement.currentTime + 5;
 			this.currentTimeElement.innerHTML = this.convertSecondsToString(
@@ -530,7 +561,7 @@ class VideoPlayer {
 			);
 			this.updateProgressBar(this);
 		}
-		if (e.code == "ArrowLeft") {
+		if (e.code === "ArrowLeft") {
 			e.preventDefault();
 			this.videoElement.currentTime = this.videoElement.currentTime - 5;
 			this.currentTimeElement.innerHTML = this.convertSecondsToString(
@@ -538,7 +569,7 @@ class VideoPlayer {
 			);
 			this.updateProgressBar(this);
 		}
-		if (e.code == "KeyJ") {
+		if (e.code === "KeyJ") {
 			e.preventDefault();
 			this.videoElement.currentTime = this.videoElement.currentTime + 10;
 			this.currentTimeElement.innerHTML = this.convertSecondsToString(
@@ -546,7 +577,7 @@ class VideoPlayer {
 			);
 			this.updateProgressBar(this);
 		}
-		if (e.code == "KeyL") {
+		if (e.code === "KeyL") {
 			e.preventDefault();
 			this.videoElement.currentTime = this.videoElement.currentTime - 10;
 			this.currentTimeElement.innerHTML = this.convertSecondsToString(
@@ -554,7 +585,7 @@ class VideoPlayer {
 			);
 			this.updateProgressBar(this);
 		}
-		if (e.code == "Numpad0") {
+		if (e.code === "Numpad0") {
 			e.preventDefault();
 			this.videoElement.currentTime = 0;
 			this.currentTimeElement.innerHTML = this.convertSecondsToString(
@@ -562,7 +593,7 @@ class VideoPlayer {
 			);
 			this.updateProgressBar(this);
 		}
-		if (e.code == "Digit0") {
+		if (e.code === "Digit0") {
 			e.preventDefault();
 			this.videoElement.currentTime = 0;
 			this.currentTimeElement.innerHTML = this.convertSecondsToString(
