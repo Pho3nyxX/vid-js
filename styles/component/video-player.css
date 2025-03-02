@@ -73,6 +73,71 @@
 				display: flex;
 				position: relative;
 
+				.volume-container {
+					display: flex;
+					align-items: center;
+
+					.volume-btn {
+						display: flex;
+					}
+
+					.volume-scrub-container {
+						position: relative;
+						height: 10px;
+						width: 0;
+						visibility: hidden;
+						transition: width 0.4s;
+
+						.volume-scrub-bar {
+							position: relative;
+							width: 100%;
+							height: 4px;
+							margin: 0 3px 0 0;
+							padding: 0;
+							background-color: var(--text);
+							cursor: pointer;
+
+							.volume-scrub-progress {
+								width: 0%;
+								height: 4px;
+								background-color: var(--primary-color);
+							}
+
+							.volume-scrub-circle {
+								position: absolute;
+								top: -3px;
+								left: 0%;
+								width: 10px;
+								height: 10px;
+								border-radius: 50%;
+								background-color: var(--primary-color);
+							}
+						}
+						
+						&:hover{
+							.tooltip {
+								visibility: visible;
+								opacity: 1;
+								left: 11px;
+                                bottom: 50px;
+
+								&::after {
+									left: 40%;
+								}
+							}
+						}
+					}
+
+					&:hover {
+						.volume-scrub-container {
+							visibility: visible;
+							width: 70px;
+							margin-right: 12px;
+						}
+
+					}
+				}
+
 				button {
 					position: relative;
 					border: none;
@@ -96,7 +161,7 @@
 						margin-right: 0;
 					}
 
-					.tooltip{
+					.tooltip {
 						left: -57px;
 
 						&::after {
@@ -105,8 +170,8 @@
 					}
 				}
 
-				.play-pause-btn{
-					.tooltip{
+				.play-pause-btn {
+					.tooltip {
 						left: 0;
 
 						&::after {
@@ -117,24 +182,27 @@
 
 				span {
 					color: var(--text);
+					padding-left: 3px;
+					font-size: 14px;
+                    margin-top: 1px;
 				}
 
 				.tooltip {
 					position: absolute;
-                    bottom: 222%;
+					bottom: 222%;
 					left: -27px;
-                    padding: 4px 6px;
-                    border-radius: 4px;
-                    text-align: center;
-                    z-index: 1;
-                    font-size: 14px;
-                    background: var(--menu-hover);
-                    color: var(--text);
-                    visibility: hidden;
-                    opacity: 0;
-                    transition: opacity 0.3s;
+					padding: 4px 6px;
+					border-radius: 4px;
+					text-align: center;
+					z-index: 1;
+					font-size: 14px;
+					background: var(--menu-hover);
+					color: var(--text);
+					visibility: hidden;
+					opacity: 0;
+					transition: opacity 0.3s;
 					text-wrap: nowrap;
-					
+
 					&::after {
 						content: "";
 						position: absolute;
@@ -145,10 +213,10 @@
 						border-color: #8080802c transparent transparent transparent;
 					}
 
-					&.hide{
+					&.hide {
 						display: none;
 					}
-				}				
+				}
 			}
 		}
 

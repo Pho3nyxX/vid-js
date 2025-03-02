@@ -24,29 +24,36 @@
 
 					<div class="controls">
 						<button class="play-pause-btn">
-							<img src="assets/play.svg" alt="play/pause" class="play-pause" width="20px" height="15px"/>
-
+							<img
+								src="assets/play.svg"
+								alt="play/pause"
+								class="play-pause"
+								width="20px"
+								height="15px"
+							/>
 							<div class="tooltip">Play (k)</div>
-							<div class="tooltip hide">Pause (k)</div>  
+							<div class="tooltip hide">Pause (k)</div>
 						</button>
 
 						<button class="skip-btn">
 							<img src="assets/skip-forward.svg" alt="skip forward" />
 						</button>
 
-						<button class="volume-btn">
-							<img src="assets/unmute.svg" alt="mute" class="mute-icon" />
-							<div class="tooltip">Mute (m)</div>
-							<div class="tooltip hide">Unmute (m)</div>
+						<div class="volume-container">
+							<button class="mute-btn">
+								<img src="assets/unmute.svg" alt="mute" class="mute-icon" />
+								<div class="tooltip">Mute (m)</div>
+								<div class="tooltip hide">Unmute (m)</div>
+							</button>
 
 							<div class="volume-scrub-container">
 								<div class="volume-scrub-bar">
 									<div class="volume-scrub-progress" style="width: 50%"></div>
 									<div class="volume-scrub-circle" style="left: 50%"></div>
-									<!-- <div class="tooltip">Volume</div> -->
 								</div>
+								<div class="tooltip">Volume</div>
 							</div>
-						</button>
+						</div>
 
 						<span>
 							<span class="video-current-time">00:00</span> /
@@ -56,12 +63,18 @@
 
 					<div class="controls">
 						<button class="caption-btn">
-							<img src="assets/close-caption.svg" alt="caption" class="close-caption" width="22px" height="22px"/>
+							<img
+								src="assets/close-caption.svg"
+								alt="caption"
+								class="close-caption"
+								width="22px"
+								height="22px"
+							/>
 							<div class="tooltip">Subtitles (c)</div>
 						</button>
 
 						<button class="settings-btn">
-							<img src="assets/settings.svg" alt="setting" class="settings"/>
+							<img src="assets/settings.svg" alt="setting" class="settings" />
 							<div class="tooltip">Settings (s)</div>
 						</button>
 
@@ -70,15 +83,20 @@
 							<div class="tooltip">Fullscreen (f)</div>
 							<div class="tooltip hide">Exit Fullscreen (f)</div>
 						</button>
-					</div> 
+					</div>
 				</div>
 
 				<div class="settings-menu">
 					<div class="menu-item">
 						<a class="menu-item-link" href="#">
-
 							<span>
-								<img src="assets/left.svg" alt="left" class="left" width="15px" height="20px"/>
+								<img
+									src="assets/left.svg"
+									alt="left"
+									class="left"
+									width="15px"
+									height="20px"
+								/>
 
 								<img
 									src="assets/playback-speed.svg"
@@ -89,16 +107,24 @@
 
 							<span>
 								Normal
-								<img src="assets/right.svg" alt="right" width="15px" height="20px"/>
+								<img
+									src="assets/right.svg"
+									alt="right"
+									width="15px"
+									height="20px"
+								/>
 							</span>
-
 						</a>
 
 						<ul class="sub-menu" id="playbackSpeedMenu">
 							<li><a href="#" data-value="0.25">0.25</a></li>
 							<li><a href="#" data-value="0.5">0.5</a></li>
 							<li><a href="#" data-value="0.75">0.75</a></li>
-							<li><a href="#" data-value="1" class="active"><img src="assets/tick.svg" alt="tick"/>1</a></li>
+							<li>
+								<a href="#" data-value="1" class="active"
+									><img src="assets/tick.svg" alt="tick" />1</a
+								>
+							</li>
 							<li><a href="#" data-value="1.25">1.25</a></li>
 							<li><a href="#" data-value="1.5">1.5</a></li>
 							<li><a href="#" data-value="1.75">1.75</a></li>
@@ -109,17 +135,31 @@
 					<div class="menu-item">
 						<a class="menu-item-link" href="#">
 							<span>
-								<img src="assets/left.svg" alt="left" class="left" width="15px" height="20px"/>
+								<img
+									src="assets/left.svg"
+									alt="left"
+									class="left"
+									width="15px"
+									height="20px"
+								/>
 
 								<img
 									src="assets/quality.svg"
 									alt="quality"
-									class="quality" width="15px" height="20px"/>Quality
+									class="quality"
+									width="15px"
+									height="20px"
+								/>Quality
 							</span>
-							
+
 							<span>
 								Auto
-								<img src="assets/right.svg" alt="right" width="15px" height="20px"/>
+								<img
+									src="assets/right.svg"
+									alt="right"
+									width="15px"
+									height="20px"
+								/>
 							</span>
 						</a>
 

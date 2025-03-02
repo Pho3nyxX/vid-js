@@ -4,7 +4,7 @@ class VideoPlayer {
 		this.videoElement = ".video";
 		this.playBtn = ".play-pause-btn";
 		this.fullScreenBtn = ".full-screen-btn";
-		this.volumeBtn = ".volume-btn";
+		this.muteBtn = ".mute-btn";
 		this.muteIcon = ".mute-icon";
 		this.settingsBtn = ".settings-btn";
 		this.settingsMenu = ".settings-menu";
@@ -73,14 +73,14 @@ class VideoPlayer {
 		}
 	}
 
-	get volumeBtn() {
-		return this._volumeBtn;
+	get muteBtn() {
+		return this._muteBtn;
 	}
 
-	set volumeBtn(selector) {
+	set muteBtn(selector) {
 		let btn = this.videoContainer.querySelector(selector);
 		if (btn) {
-			this._volumeBtn = btn;
+			this._muteBtn = btn;
 		} else {
 			console.error("Cannot adjust video volume");
 		}
@@ -314,7 +314,7 @@ class VideoPlayer {
 			this.volumeProgressHandleDownMousePress
 		);
 
-		this.videoContainer.addEventListener("click", this.closeSettings)
+		this.videoContainer.addEventListener("click", this.closeSettings);
 	}
 
 	playPause = (e) => {
@@ -346,7 +346,7 @@ class VideoPlayer {
 		fullscreenBtnIcon.src = "assets/fullscreen-exit.svg";
 		this.toolTip.innerHTML = "Exit Fullscreen (f)";
 	}
-	
+
 	exitFullscreen() {
 		this.videoContainer.classList.remove("fullscreen");
 		document.exitFullscreen();
@@ -368,6 +368,7 @@ class VideoPlayer {
 	}
 
 	MuteUnmute = (e) => {
+		// console.log("mute");
 		if (this.videoElement.muted) {
 			this.unmute();
 		} else {
@@ -551,7 +552,7 @@ class VideoPlayer {
 		}
 		if (e.code === "KeyS") {
 			e.preventDefault();
-			this.toggleSettingBtn(e)
+			this.toggleSettingBtn(e);
 		}
 		if (e.code === "ArrowRight") {
 			e.preventDefault();
@@ -666,7 +667,6 @@ class VideoPlayer {
 
 	scrubVolume = (e) => {
 		e.preventDefault();
-
 		let volumeScrubContainerWidth =
 			this.volumeScrubContainer.getBoundingClientRect().width;
 		let volumeProgressBarWidth =
@@ -676,21 +676,19 @@ class VideoPlayer {
 		let volumeProgressBarWidthFractional =
 			volumeProgressBarWidth / volumeScrubContainerWidth;
 
-		console.log(volumeProgressBarWidthFractional);
-		let newVolume =
-			this.videoElement.volume *
-			(movementFractional + volumeProgressBarWidthFractional);
+		let newVolume = movementFractional + volumeProgressBarWidthFractional;
 
-		let totalPercent = (
-			(movementFractional + volumeProgressBarWidthFractional) *
-			100
-		).toFixed(2);
+		if (newVolume > 0 && newVolume < 1) {
 
-		this.volumeProgressBar.style.width = totalPercent + "%";
-		this.volumeProgressHandle.style.left = totalPercent + "%";
+			let totalPercent = (
+				(movementFractional + volumeProgressBarWidthFractional) * 100
+			).toFixed(2);
 
-		this.videoElement.volume = newVolume;
-		console.log(this.videoElement.volume);
+			this.volumeProgressBar.style.width = totalPercent + "%";
+			this.volumeProgressHandle.style.left = totalPercent + "%";
+
+			this.videoElement.volume = newVolume;
+		}
 	};
 
 	endScrubVolume = (e) => {
