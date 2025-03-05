@@ -396,7 +396,6 @@ class VideoPlayer {
 	}
 
 	MuteUnmute = (e) => {
-		// console.log("mute");
 		if (this.videoElement.muted) {
 			this.unmute();
 		} else {
@@ -405,13 +404,13 @@ class VideoPlayer {
 	};
 
 	mute() {
-		this.muteIcon.src = "assets/mute.svg";
+		this.muteIcon.src = "assets/volume-mute.svg";
 		this.videoElement.muted = true;
 		this.muteTooltip.innerHTML = "Unmute (m)";
 	}
-	
+
 	unmute() {
-		this.muteIcon.src = "assets/unmute.svg";
+		this.muteIcon.src = "assets/volume-up.svg";
 		this.videoElement.muted = false;
 		this.muteTooltip.innerHTML = "Mute (m)";
 	}
@@ -707,15 +706,23 @@ class VideoPlayer {
 		let newVolume = movementFractional + volumeProgressBarWidthFractional;
 
 		if (newVolume > 0 && newVolume < 1) {
-
 			let totalPercent = (
-				(movementFractional + volumeProgressBarWidthFractional) * 100
+				(movementFractional + volumeProgressBarWidthFractional) *
+				100
 			).toFixed(2);
 
 			this.volumeProgressBar.style.width = totalPercent + "%";
 			this.volumeProgressHandle.style.left = totalPercent + "%";
 
 			this.videoElement.volume = newVolume;
+		}
+
+		if (newVolume <= 0) {
+			this.muteIcon.src = "assets/volume-mute.svg";
+		}else if(newVolume < .5) {
+			this.muteIcon.src = "assets/volume-down.svg";
+		}else{
+			this.muteIcon.src = "assets/volume-up.svg";
 		}
 	};
 

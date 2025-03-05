@@ -77,9 +77,16 @@
 					display: flex;
 					align-items: center;
 
-					.volume-btn {
-						display: flex;
+					.mute-btn{
+						img{
+							height: 20px;
+							width: 20px;
+						}
 					}
+
+					/* .volume-btn {
+						display: flex;
+					} */
 
 					.volume-scrub-container {
 						position: relative;
