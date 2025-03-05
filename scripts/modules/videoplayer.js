@@ -20,7 +20,9 @@ class VideoPlayer {
 		this.volumeProgressBar = ".volume-scrub-progress";
 		this.volumeProgressHandle = ".volume-scrub-circle";
 		this.volumeScrubContainer = ".volume-scrub-container";
-		this.toolTip = ".tooltip";
+		this.playTooltip = "#playTooltip";
+		this.muteTooltip = "#muteTooltip";
+		this.fullscreenTooltip = "#fullscreenTooltip";
 
 		this.videoDurationElement.innerHTML = this.convertSecondsToString(
 			this.videoElement.duration
@@ -278,14 +280,40 @@ class VideoPlayer {
 		}
 	}
 
-	get toolTip() {
-		return this._toolTip;
+	get playTooltip() {
+		return this._playTooltip;
 	}
 
-	set toolTip(selector) {
-		let toolTipDisplay = this.videoContainer.querySelector(selector);
-		if (toolTipDisplay) {
-			this._toolTip = toolTipDisplay;
+	set playTooltip(selector) {
+		let tooltipPlay = this.videoContainer.querySelector(selector);
+		if (tooltipPlay) {
+			this._playTooltip = tooltipPlay;
+		} else {
+			console.error("Cannot load tooltip");
+		}
+	}
+
+	get muteTooltip() {
+		return this._muteTooltip;
+	}
+
+	set muteTooltip(selector) {
+		let tooltipMute = this.videoContainer.querySelector(selector);
+		if (tooltipMute) {
+			this._muteTooltip = tooltipMute;
+		} else {
+			console.error("Cannot load tooltip");
+		}
+	}
+
+	get fullscreenTooltip() {
+		return this._fullscreenTooltip;
+	}
+
+	set fullscreenTooltip(selector) {
+		let tooltipFullscreen = this.videoContainer.querySelector(selector);
+		if (tooltipFullscreen) {
+			this._fullscreenTooltip = tooltipFullscreen;
 		} else {
 			console.error("Cannot load tooltip");
 		}
@@ -329,14 +357,14 @@ class VideoPlayer {
 		this.videoElement.play();
 		let playBtnIcon = this.playBtn.querySelector("img");
 		playBtnIcon.src = "assets/pause.svg";
-		this.toolTip.innerHTML = "Pause (k)";
+		this.playTooltip.innerHTML = "Pause (k)";
 	}
 
 	pause() {
 		this.videoElement.pause();
 		let playBtnIcon = this.playBtn.querySelector("img");
 		playBtnIcon.src = "assets/play.svg";
-		this.toolTip.innerHTML = "Play (k)";
+		this.playTooltip.innerHTML = "Play (k)";
 	}
 
 	fullscreen() {
@@ -344,7 +372,7 @@ class VideoPlayer {
 		this.videoContainer.requestFullscreen();
 		let fullscreenBtnIcon = this.fullScreenBtn.querySelector("img");
 		fullscreenBtnIcon.src = "assets/fullscreen-exit.svg";
-		this.toolTip.innerHTML = "Exit Fullscreen (f)";
+		this.fullscreenTooltip.innerHTML = "Exit Fullscreen (f)";
 	}
 
 	exitFullscreen() {
@@ -352,7 +380,7 @@ class VideoPlayer {
 		document.exitFullscreen();
 		let fullscreenBtnIcon = this.fullScreenBtn.querySelector("img");
 		fullscreenBtnIcon.src = "assets/fullscreen.svg";
-		this.toolTip.innerHTML = "Fullscreen (f)";
+		this.fullscreenTooltip.innerHTML = "Fullscreen (f)";
 	}
 
 	FullExitScreen = (e) => {
@@ -379,13 +407,13 @@ class VideoPlayer {
 	mute() {
 		this.muteIcon.src = "assets/mute.svg";
 		this.videoElement.muted = true;
-		// this.toolTip.innerHTML = "Mute (m)";
+		this.muteTooltip.innerHTML = "Unmute (m)";
 	}
-
+	
 	unmute() {
 		this.muteIcon.src = "assets/unmute.svg";
 		this.videoElement.muted = false;
-		// this.toolTip.innerHTML = "Unmute (m)";
+		this.muteTooltip.innerHTML = "Mute (m)";
 	}
 
 	toggleSettingBtn = (e) => {

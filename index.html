@@ -31,8 +31,7 @@
 								width="20px"
 								height="15px"
 							/>
-							<div class="tooltip">Play (k)</div>
-							<div class="tooltip hide">Pause (k)</div>
+							<div class="tooltip" id="playTooltip">Play (k)</div>
 						</button>
 
 						<button class="skip-btn">
@@ -42,14 +41,13 @@
 						<div class="volume-container">
 							<button class="mute-btn">
 								<img src="assets/unmute.svg" alt="mute" class="mute-icon" />
-								<div class="tooltip">Mute (m)</div>
-								<div class="tooltip hide">Unmute (m)</div>
+								<div class="tooltip" id="muteTooltip">Mute (m)</div>
 							</button>
 
 							<div class="volume-scrub-container">
 								<div class="volume-scrub-bar">
-									<div class="volume-scrub-progress" style="width: 50%"></div>
-									<div class="volume-scrub-circle" style="left: 50%"></div>
+									<div class="volume-scrub-progress" style="width: 100%"></div>
+									<div class="volume-scrub-circle" style="left: 100%"></div>
 								</div>
 								<div class="tooltip">Volume</div>
 							</div>
@@ -80,8 +78,7 @@
 
 						<button class="full-screen-btn">
 							<img src="assets/fullscreen.svg" alt="fullscreen" />
-							<div class="tooltip">Fullscreen (f)</div>
-							<div class="tooltip hide">Exit Fullscreen (f)</div>
+							<div class="tooltip" id="fullscreenTooltip">Fullscreen (f)</div>
 						</button>
 					</div>
 				</div>

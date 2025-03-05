@@ -113,13 +113,13 @@
 								background-color: var(--primary-color);
 							}
 						}
-						
-						&:hover{
+
+						&:hover {
 							.tooltip {
 								visibility: visible;
 								opacity: 1;
 								left: 11px;
-                                bottom: 50px;
+								bottom: 50px;
 
 								&::after {
 									left: 40%;
@@ -134,7 +134,6 @@
 							width: 70px;
 							margin-right: 12px;
 						}
-
 					}
 				}
 
@@ -184,7 +183,7 @@
 					color: var(--text);
 					padding-left: 3px;
 					font-size: 14px;
-                    margin-top: 1px;
+					margin-top: 1px;
 				}
 
 				.tooltip {
@@ -366,6 +365,16 @@
 			.controls {
 				span {
 					color: var(--text);
+				}
+				
+				.full-screen-btn {
+					.tooltip {
+						left: -83px;
+
+						&::after {
+							left: 75%;
+						}
+					}
 				}
 			}
 
