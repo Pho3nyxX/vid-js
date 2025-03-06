@@ -20,6 +20,9 @@ class VideoPlayer {
 		this.volumeProgressBar = ".volume-scrub-progress";
 		this.volumeProgressHandle = ".volume-scrub-circle";
 		this.volumeScrubContainer = ".volume-scrub-container";
+
+		this.toolTips = ".tooltip";
+
 		this.playTooltip = "#playTooltip";
 		this.muteTooltip = "#muteTooltip";
 		this.fullscreenTooltip = "#fullscreenTooltip";
@@ -280,6 +283,19 @@ class VideoPlayer {
 		}
 	}
 
+	get toolTips() {
+		return this._toolTips;
+	}
+
+	set toolTips(selector) {
+		let toolTipDisplay = this.videoContainer.querySelectorAll(selector);
+		if (toolTipDisplay) {
+			this._toolTips = toolTipDisplay;
+		} else {
+			console.error("Cannot load tooltips");
+		}
+	}
+
 	get playTooltip() {
 		return this._playTooltip;
 	}
@@ -289,7 +305,7 @@ class VideoPlayer {
 		if (tooltipPlay) {
 			this._playTooltip = tooltipPlay;
 		} else {
-			console.error("Cannot load tooltip");
+			console.error("Cannot load play tooltip");
 		}
 	}
 
@@ -302,7 +318,7 @@ class VideoPlayer {
 		if (tooltipMute) {
 			this._muteTooltip = tooltipMute;
 		} else {
-			console.error("Cannot load tooltip");
+			console.error("Cannot load mute tooltip");
 		}
 	}
 
@@ -315,7 +331,7 @@ class VideoPlayer {
 		if (tooltipFullscreen) {
 			this._fullscreenTooltip = tooltipFullscreen;
 		} else {
-			console.error("Cannot load tooltip");
+			console.error("Cannot load fullscreen tooltip");
 		}
 	}
 
@@ -417,6 +433,7 @@ class VideoPlayer {
 
 	toggleSettingBtn = (e) => {
 		this.settingsMenu.classList.toggle("active");
+		this.toggleDisabledTooltip();
 	};
 
 	toggleMenuItem = (e) => {
@@ -436,6 +453,12 @@ class VideoPlayer {
 					}
 				});
 			}
+		}
+	};
+
+	toggleDisabledTooltip = (e) => {
+		for (let i = 0; i < this.toolTips.length; i++) {
+			this.toolTips[i].classList.toggle("disabled");
 		}
 	};
 
@@ -719,9 +742,9 @@ class VideoPlayer {
 
 		if (newVolume <= 0) {
 			this.muteIcon.src = "assets/volume-mute.svg";
-		}else if(newVolume < .5) {
+		} else if (newVolume < 0.5) {
 			this.muteIcon.src = "assets/volume-down.svg";
-		}else{
+		} else {
 			this.muteIcon.src = "assets/volume-up.svg";
 		}
 	};

@@ -15,7 +15,7 @@
 		background-color: #000;
 		position: relative;
 		overflow: hidden;
-
+		
 		.video {
 			position: relative;
 			width: 100%;
@@ -37,8 +37,7 @@
 				padding: 0;
 				width: 100%;
 				height: 4px;
-				background-color: var(--text);
-				opacity: 0.3;
+				background-color: #f1f1f140;
 				cursor: pointer;
 
 				.scrub-progress {
@@ -77,16 +76,12 @@
 					display: flex;
 					align-items: center;
 
-					.mute-btn{
-						img{
+					.mute-btn {
+						img {
 							height: 20px;
 							width: 20px;
 						}
 					}
-
-					/* .volume-btn {
-						display: flex;
-					} */
 
 					.volume-scrub-container {
 						position: relative;
@@ -190,7 +185,7 @@
 					color: var(--text);
 					padding-left: 3px;
 					font-size: 14px;
-					margin-top: 1px;
+					margin-top: 2px;
 				}
 
 				.tooltip {
@@ -223,6 +218,10 @@
 						display: none;
 					}
 				}
+			}
+
+			.disabled{
+				display: none;
 			}
 		}
 
@@ -373,7 +372,7 @@
 				span {
 					color: var(--text);
 				}
-				
+
 				.full-screen-btn {
 					.tooltip {
 						left: -83px;
