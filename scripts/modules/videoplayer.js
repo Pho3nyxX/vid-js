@@ -20,9 +20,7 @@ class VideoPlayer {
 		this.volumeProgressBar = ".volume-scrub-progress";
 		this.volumeProgressHandle = ".volume-scrub-circle";
 		this.volumeScrubContainer = ".volume-scrub-container";
-
 		this.toolTips = ".tooltip";
-
 		this.playTooltip = "#playTooltip";
 		this.muteTooltip = "#muteTooltip";
 		this.fullscreenTooltip = "#fullscreenTooltip";
@@ -32,6 +30,8 @@ class VideoPlayer {
 		);
 
 		this.setUpEvents();
+
+		this.restoreVolume();
 	}
 
 	get videoContainer() {
@@ -346,18 +346,11 @@ class VideoPlayer {
 		this.videoElement.addEventListener("pause", this.videoPause);
 		this.videoElement.addEventListener("click", this.playPause);
 		document.addEventListener("keydown", this.keyboardShortcuts);
-		this.progressHandle.addEventListener(
-			"mousedown",
-			this.progressHandleDownMousePress
-		);
+		this.progressHandle.addEventListener("mousedown", this.progressHandleDownMousePress);
 		this.videoElement.addEventListener("seeked", this.seekEventListener);
 		this.videoElement.addEventListener("loadedmetadata", this.metaDataLoaded);
 		this.scrubBar.addEventListener("click", this.scrubBarPress);
-		this.volumeProgressHandle.addEventListener(
-			"mousedown",
-			this.volumeProgressHandleDownMousePress
-		);
-
+		this.volumeProgressHandle.addEventListener("mousedown", this.volumeProgressHandleDownMousePress);
 		this.videoContainer.addEventListener("click", this.closeSettings);
 	}
 
@@ -422,6 +415,8 @@ class VideoPlayer {
 	mute() {
 		this.muteIcon.src = "assets/volume-mute.svg";
 		this.videoElement.muted = true;
+		this.volumeProgressBar.style.width = "0%";
+		this.volumeProgressHandle.style.left = "0%";
 		this.muteTooltip.innerHTML = "Unmute (m)";
 	}
 
@@ -429,6 +424,7 @@ class VideoPlayer {
 		this.muteIcon.src = "assets/volume-up.svg";
 		this.videoElement.muted = false;
 		this.muteTooltip.innerHTML = "Mute (m)";
+		this.restoreVolume();
 	}
 
 	toggleSettingBtn = (e) => {
@@ -751,6 +747,16 @@ class VideoPlayer {
 
 	endScrubVolume = (e) => {
 		document.removeEventListener("mousemove", this.scrubVolume);
+		let lastVolume = this.videoElement.volume;
+		localStorage.setItem("volume", lastVolume);
 	};
+
+	restoreVolume(){
+		let volume = localStorage.getItem("volume") || 1;
+		this.videoElement.volume = volume;
+		let volumePercent = volume * 100;
+		this.volumeProgressBar.style.width = volumePercent + "%";
+		this.volumeProgressHandle.style.left = volumePercent + "%";
+	}
 }
 export { VideoPlayer };
