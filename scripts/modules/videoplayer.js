@@ -642,47 +642,23 @@ class VideoPlayer {
 			e.preventDefault();
 			this.toggleSettingBtn(e);
 		}
-		if (e.code === "ArrowRight") {
+		if(e.code === "ArrowRight" || e.code === "ArrowLeft" ){
 			e.preventDefault();
-			this.videoElement.currentTime = this.videoElement.currentTime + 5;
+			this.videoElement.currentTime += e.code == "ArrowRight" ? + 5 : - 5;
 			this.currentTimeElement.innerHTML = this.convertSecondsToString(
 				this.videoElement.currentTime
 			);
 			this.updateProgressBar(this);
 		}
-		if (e.code === "ArrowLeft") {
+		if(e.code === "KeyJ" || e.code === "KeyL" ){
 			e.preventDefault();
-			this.videoElement.currentTime = this.videoElement.currentTime - 5;
+			this.videoElement.currentTime += e.code == "KeyJ" ? + 10 : - 10;
 			this.currentTimeElement.innerHTML = this.convertSecondsToString(
 				this.videoElement.currentTime
 			);
 			this.updateProgressBar(this);
 		}
-		if (e.code === "KeyJ") {
-			e.preventDefault();
-			this.videoElement.currentTime = this.videoElement.currentTime + 10;
-			this.currentTimeElement.innerHTML = this.convertSecondsToString(
-				this.videoElement.currentTime
-			);
-			this.updateProgressBar(this);
-		}
-		if (e.code === "KeyL") {
-			e.preventDefault();
-			this.videoElement.currentTime = this.videoElement.currentTime - 10;
-			this.currentTimeElement.innerHTML = this.convertSecondsToString(
-				this.videoElement.currentTime
-			);
-			this.updateProgressBar(this);
-		}
-		if (e.code === "Numpad0") {
-			e.preventDefault();
-			this.videoElement.currentTime = 0;
-			this.currentTimeElement.innerHTML = this.convertSecondsToString(
-				this.videoElement.currentTime
-			);
-			this.updateProgressBar(this);
-		}
-		if (e.code === "Digit0") {
+		if(e.code === "Numpad0" || e.code === "Digit0" ){
 			e.preventDefault();
 			this.videoElement.currentTime = 0;
 			this.currentTimeElement.innerHTML = this.convertSecondsToString(
