@@ -15,7 +15,7 @@
 		background-color: #000;
 		position: relative;
 		overflow: hidden;
-		
+
 		.video {
 			position: relative;
 			width: 100%;
@@ -23,6 +23,37 @@
 			overflow: hidden;
 			z-index: 0;
 			outline: 0;
+		}
+
+		.percentage {
+			top: 20%;
+			padding: 5px 10px;
+			border-radius: 4px;
+		}
+
+		.mute-container {
+			bottom: 50%;
+			height: 55px;
+			padding: 15px;
+			border-radius: 50%;
+
+			#muteImg {
+				width: 25px;
+				height: 25px;
+			}
+		}
+
+		.percentage,
+		.mute-container {
+			position: absolute;
+			left: 50%;
+			visibility: hidden;
+			background: var(--grey-hover);
+			color: var(--text);
+
+			&.active {
+				visibility: visible;
+			}
 		}
 
 		.scrub-container {
@@ -48,11 +79,11 @@
 
 				.scrub-circle {
 					position: absolute;
-					top: -6px;
+					top: -4px;
 					left: 0;
 					border-radius: 50%;
-					width: 16px;
-					height: 16px;
+					width: 13px;
+					height: 13px;
 					background-color: var(--primary-color);
 				}
 			}
@@ -197,7 +228,7 @@
 					text-align: center;
 					z-index: 1;
 					font-size: 14px;
-					background: var(--menu-hover);
+					background: var(--grey-hover);
 					color: var(--text);
 					visibility: hidden;
 					opacity: 0;
@@ -220,7 +251,7 @@
 				}
 			}
 
-			.disabled{
+			.disabled {
 				display: none;
 			}
 		}
@@ -231,7 +262,7 @@
 			bottom: 75px;
 			right: 15px;
 			width: 250px;
-			background: var(--menu-background);
+			background: var(--grey-light);
 			border-radius: 8px;
 			padding-top: 8px;
 			padding-bottom: 8px;
@@ -253,7 +284,7 @@
 					}
 
 					&:hover {
-						background: var(--menu-hover);
+						background: var(--grey-hover);
 					}
 				}
 
@@ -346,7 +377,7 @@
 						}
 
 						&:hover {
-							background-color: var(--menu-hover);
+							background-color: var(--grey-hover);
 						}
 					}
 				}

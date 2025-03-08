@@ -4,6 +4,9 @@ class VideoPlayer {
 		this.videoElement = ".video";
 		this.playBtn = ".play-pause-btn";
 		this.fullScreenBtn = ".full-screen-btn";
+		this.muteImg = "#muteImg";
+		this.muteContainer = ".mute-container";
+		this.mutePercentage = ".percentage";
 		this.muteBtn = ".mute-btn";
 		this.muteIcon = ".mute-icon";
 		this.settingsBtn = ".settings-btn";
@@ -75,6 +78,45 @@ class VideoPlayer {
 			this._fullScreenBtn = btn;
 		} else {
 			console.error("Cannot enter full screen.");
+		}
+	}
+
+	get muteImg() {
+		return this._muteImg;
+	}
+
+	set muteImg(selector) {
+		let img = this.videoContainer.querySelector(selector);
+		if (img) {
+			this._muteImg = img;
+		} else {
+			console.error("Cannot adjust video volume");
+		}
+	}
+
+	get muteContainer() {
+		return this._muteContainer;
+	}
+
+	set muteContainer(selector) {
+		let container = this.videoContainer.querySelector(selector);
+		if (container) {
+			this._muteContainer = container;
+		} else {
+			console.error("Cannot adjust video volume");
+		}
+	}
+
+	get mutePercentage() {
+		return this._mutePercentage;
+	}
+
+	set mutePercentage(selector) {
+		let percent = this.videoContainer.querySelector(selector);
+		if (percent) {
+			this._mutePercentage = percent;
+		} else {
+			console.error("Cannot view percentage");
 		}
 	}
 
@@ -648,7 +690,52 @@ class VideoPlayer {
 			);
 			this.updateProgressBar(this);
 		}
+		if(e.code === "ArrowUp" || e.code === "ArrowDown" ){
+			let volumeIncreaseAmount = e.code == "ArrowUp" ? 0.05: -0.05;  
+			e.preventDefault();
+
+			let {newVolume, volumePercent} = this.updateVolume(volumeIncreaseAmount);
+
+			this.muteContainer.classList.toggle("active");
+			this.mutePercentage.classList.toggle("active");
+			this.mutePercentage.innerHTML = volumePercent + "%";
+
+			setTimeout(() => {
+				this.muteContainer.classList.toggle("active");
+				this.mutePercentage.classList.toggle("active");				
+			},1000);
+		}
 	};
+
+	updateVolume(increaseBy){
+		let newVolume = this.videoElement.volume + increaseBy;
+
+		if(newVolume > 1){
+			newVolume = 1;
+		}else if (newVolume < 0){
+			newVolume = 0;
+		}
+
+		let volumePercent = (newVolume * 100).toFixed(0);
+		volumePercent = volumePercent - (volumePercent % 5);
+		this.videoElement.volume = volumePercent / 100;
+
+		this.volumeProgressBar.style.width = volumePercent + "%";
+		this.volumeProgressHandle.style.left = volumePercent + "%";
+
+		if (newVolume <= 0) {
+			this.muteIcon.src = "assets/volume-mute.svg";
+			this.muteImg.src = "assets/volume-mute.svg";
+		} else if (newVolume < 0.5) {
+			this.muteIcon.src = "assets/volume-down.svg";
+			this.muteImg.src = "assets/volume-down.svg";
+		} else {
+			this.muteIcon.src = "assets/volume-up.svg";
+			this.muteImg.src = "assets/volume-up.svg";
+		}
+
+		return {volume: newVolume, volumePercent: volumePercent};
+	}
 
 	progressHandleDownMousePress = (e) => {
 		e.preventDefault();
