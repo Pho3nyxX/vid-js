@@ -67,13 +67,13 @@
 				margin: 0;
 				padding: 0;
 				width: 100%;
-				height: 4px;
+				height: 3px;
 				background-color: #f1f1f140;
 				cursor: pointer;
 
 				.scrub-progress {
 					background-color: var(--primary-color);
-					height: 4px;
+					height: 3px;
 					width: 0%;
 				}
 
@@ -130,7 +130,7 @@
 						.volume-scrub-bar {
 							position: relative;
 							width: 100%;
-							height: 4px;
+							height: 3px;
 							margin: 0 3px 0 0;
 							padding: 0;
 							background-color: var(--text);
@@ -138,7 +138,7 @@
 
 							.volume-scrub-progress {
 								width: 0%;
-								height: 4px;
+								height: 3px;
 								background-color: var(--primary-color);
 							}
 

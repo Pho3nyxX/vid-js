@@ -512,6 +512,15 @@ class VideoPlayer {
 	toggleSettingBtn = (e) => {
 		this.settingsMenu.classList.toggle("active");
 		this.toggleDisabledTooltip();
+		
+		if(this.settingsMenu.classList.contains("active")){
+			this.videoControls.classList.add("active");	
+			if(this.videoControlTimer){
+				clearTimeout(this.videoControlTimer);
+			}
+		}else{
+			this.startVideoControlTimer();
+		}
 	};
 
 	toggleMenuItem = (e) => {
