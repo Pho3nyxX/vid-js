@@ -48,8 +48,8 @@
 			position: absolute;
 			left: 50%;
 			visibility: hidden;
-			background: var(--grey-hover);
 			color: var(--text);
+			background: var(--grey-hover);
 
 			&.active {
 				visibility: visible;
@@ -96,8 +96,14 @@
 			width: 100%;
 			bottom: 0;
 			left: 0;
-			padding: 20px;
+			/* padding: 20px; */
+			padding: 20px 20px 10px;
 			background-color: #0001;
+			visibility: hidden;
+
+			&.active {
+				visibility: visible;
+			}
 
 			.controls {
 				display: flex;

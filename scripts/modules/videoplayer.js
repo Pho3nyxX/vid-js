@@ -2,6 +2,7 @@ class VideoPlayer {
 	constructor(videoContainerId) {
 		this._videoContainer = document.getElementById(videoContainerId);
 		this.videoElement = ".video";
+		this.videoControls = ".video-controls";
 		this.playBtn = ".play-pause-btn";
 		this.fullScreenBtn = ".full-screen-btn";
 		this.muteImg = "#muteImg";
@@ -36,7 +37,7 @@ class VideoPlayer {
 
 		this.restoreVolume();
 	}
-
+	
 	get videoContainer() {
 		return this._videoContainer;
 	}
@@ -52,6 +53,19 @@ class VideoPlayer {
 			this._videoElement.removeAttribute("controls");
 		} else {
 			console.error("Video not found.");
+		}
+	}
+
+	get videoControls() {
+		return this._videoControls;
+	}
+
+	set videoControls(selector) {
+		let vidControls = this.videoContainer.querySelector(selector);
+		if (vidControls) {
+			this._videoControls = vidControls;
+		} else {
+			console.error("Cannot load controls.");
 		}
 	}
 
@@ -393,7 +407,26 @@ class VideoPlayer {
 		this.videoElement.addEventListener("loadedmetadata", this.metaDataLoaded);
 		this.scrubBar.addEventListener("click", this.scrubBarPress);
 		this.volumeProgressHandle.addEventListener("mousedown", this.volumeProgressHandleDownMousePress);
-		this.videoContainer.addEventListener("click", this.closeSettings);
+		// this.videoContainer.addEventListener("click", this.closeSettings);
+
+		this.videoElement.addEventListener("mousemove", this.showVideoControls);
+	}
+
+	showVideoControls = (e) => {
+		if(!this.videoElement.paused){
+			this.videoControls.classList.add("active");			
+			if(this.videoControlTimer){
+				clearTimeout(this.videoControlTimer);
+			}
+			this.startVideoControlTimer();
+		}
+	}
+
+	startVideoControlTimer(){
+		this.videoControlTimer = setTimeout(() => {
+			this.videoControls.classList.remove("active");
+			this.videoControlTimer = null;
+		},4000);
 	}
 
 	playPause = (e) => {
@@ -407,8 +440,10 @@ class VideoPlayer {
 	play() {
 		this.videoElement.play();
 		let playBtnIcon = this.playBtn.querySelector("img");
+
 		playBtnIcon.src = "assets/pause.svg";
 		this.playTooltip.innerHTML = "Pause (k)";
+		this.startVideoControlTimer();
 	}
 
 	pause() {
@@ -416,6 +451,11 @@ class VideoPlayer {
 		let playBtnIcon = this.playBtn.querySelector("img");
 		playBtnIcon.src = "assets/play.svg";
 		this.playTooltip.innerHTML = "Play (k)";
+
+		this.videoControls.classList.add("active");	
+		if(this.videoControlTimer){
+			clearTimeout(this.videoControlTimer);
+		}		
 	}
 
 	fullscreen() {
