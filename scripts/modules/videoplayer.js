@@ -721,13 +721,17 @@ class VideoPlayer {
 
 			let {newVolume, volumePercent} = this.updateVolume(volumeIncreaseAmount);
 
-			this.muteContainer.classList.toggle("active");
-			this.mutePercentage.classList.toggle("active");
+			this.muteContainer.classList.add("active");
+			this.mutePercentage.classList.add("active");
 			this.mutePercentage.innerHTML = volumePercent + "%";
 
-			setTimeout(() => {
-				this.muteContainer.classList.toggle("active");
-				this.mutePercentage.classList.toggle("active");				
+			if(this.muteIconTimer){
+				clearTimeout(this.muteIconTimer);
+			}
+
+			this.muteIconTimer = setTimeout(() => {
+				this.muteContainer.classList.remove("active");
+				this.mutePercentage.classList.remove("active");				
 			},1000);
 		}
 	};
