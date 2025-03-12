@@ -7,6 +7,8 @@ class VideoPlayer {
 		this.fullScreenBtn = ".full-screen-btn";
 		this.forwardContainer = ".forward-container";
 		this.rewindContainer = ".rewind-container";
+		this.playContainer = ".play-container";
+		this.pauseContainer = ".pause-container";
 		this.muteImg = "#muteImg";
 		this.muteContainer = ".mute-container";
 		this.mutePercentage = ".percentage";
@@ -120,6 +122,32 @@ class VideoPlayer {
 			this._rewindContainer = container;
 		} else {
 			console.error("Cannot rewind video.");
+		}
+	}
+
+	get playContainer() {
+		return this._playContainer;
+	}
+
+	set playContainer(selector) {
+		let container = this.videoContainer.querySelector(selector);
+		if (container) {
+			this._playContainer = container;
+		} else {
+			console.error("Cannot play video.");
+		}
+	}
+
+	get pauseContainer() {
+		return this._pauseContainer;
+	}
+
+	set pauseContainer(selector) {
+		let container = this.videoContainer.querySelector(selector);
+		if (container) {
+			this._pauseContainer = container;
+		} else {
+			console.error("Cannot pause video.");
 		}
 	}
 
@@ -480,6 +508,16 @@ class VideoPlayer {
 		playBtnIcon.src = "assets/pause.svg";
 		this.playTooltip.innerHTML = "Pause (k)";
 		this.startVideoControlTimer();
+
+		this.playContainer.classList.add("active");
+
+		if(this.playContainerTimer){
+			clearTimeout(this.playContainerTimer);
+		}
+
+		this.playContainerTimer = setTimeout(() => {
+			this.playContainer.classList.remove("active");
+		},1000);
 	}
 
 	pause() {
@@ -492,6 +530,16 @@ class VideoPlayer {
 		if(this.videoControlTimer){
 			clearTimeout(this.videoControlTimer);
 		}		
+
+		this.pauseContainer.classList.add("active");
+
+		if(this.pauseContainerTimer){
+			clearTimeout(this.pauseContainerTimer);
+		}
+
+		this.pauseContainerTimer = setTimeout(() => {
+			this.pauseContainer.classList.remove("active");
+		},1000);
 	}
 
 	fullscreen() {
@@ -707,11 +755,7 @@ class VideoPlayer {
 	}
 
 	keyboardShortcuts = (e) => {
-		if (e.code === "Space") {
-			e.preventDefault();
-			this.playPause(e);
-		}
-		if (e.code === "KeyK") {
+		if (e.code === "Space" || e.code === "KeyK") {
 			e.preventDefault();
 			this.playPause(e);
 		}
@@ -727,7 +771,7 @@ class VideoPlayer {
 			e.preventDefault();
 			this.toggleSettingBtn(e);
 		}
-		if(e.code === "ArrowRight" || e.code === "ArrowLeft" ){
+		if(e.code === "ArrowRight" || e.code === "ArrowLeft"){
 			e.preventDefault();
 			this.videoElement.currentTime += e.code == "ArrowRight" ? + 5 : - 5;
 			this.currentTimeElement.innerHTML = this.convertSecondsToString(
@@ -759,7 +803,7 @@ class VideoPlayer {
 				},1000);
 			}
 		}
-		if(e.code === "KeyJ" || e.code === "KeyL" ){
+		if(e.code === "KeyJ" || e.code === "KeyL"){
 			e.preventDefault();
 			this.videoElement.currentTime += e.code == "KeyJ" ? + 10 : - 10;
 			this.currentTimeElement.innerHTML = this.convertSecondsToString(
@@ -767,7 +811,7 @@ class VideoPlayer {
 			);
 			this.updateProgressBar(this);
 		}
-		if(e.code === "Numpad0" || e.code === "Digit0" ){
+		if(e.code === "Numpad0" || e.code === "Digit0"){
 			e.preventDefault();
 			this.videoElement.currentTime = 0;
 			this.currentTimeElement.innerHTML = this.convertSecondsToString(
@@ -775,7 +819,7 @@ class VideoPlayer {
 			);
 			this.updateProgressBar(this);
 		}
-		if(e.code === "ArrowUp" || e.code === "ArrowDown" ){
+		if(e.code === "ArrowUp" || e.code === "ArrowDown"){
 			e.preventDefault();
 			let volumeIncreaseAmount = e.code == "ArrowUp" ? 0.05: -0.05;  
 

@@ -33,7 +33,9 @@
 
 		.mute-container,		
 		.forward-container, 
-		.rewind-container {
+		.rewind-container,
+		.play-container,
+		.pause-container {
 			bottom: 50%;
 			height: 55px;
 			padding: 15px;
@@ -41,16 +43,28 @@
 
 			#muteImg,
 			#forward, 
-			#rewind {
+			#rewind,
+			#pause {
 				width: 25px;
 				height: 25px;
 			}
+
+			#play{
+				width: 20px;
+				height: 20px;
+			}
 		}
+
+		.play-container{
+			height: 50px;
+ 		}
 
 		.percentage,
 		.mute-container,
 		.forward-container, 
-		.rewind-container {
+		.rewind-container,
+		.play-container,
+		.pause-container {
 			position: absolute;
 			visibility: hidden;
 			color: var(--text);
@@ -60,9 +74,11 @@
 				visibility: visible;
 			}
 		}
-
+		
 		.percentage,
-		.mute-container {
+		.mute-container,
+		.play-container,
+		.pause-container {
 			left: 50%;
 		}
 
