@@ -11,6 +11,7 @@ class VideoPlayer {
 		this.pauseContainer = ".pause-container";
 		this.muteImg = "#muteImg";
 		this.muteContainer = ".mute-container";
+		this.unmuteContainer = ".unmute-container";
 		this.mutePercentage = ".percentage";
 		this.muteBtn = ".mute-btn";
 		this.muteIcon = ".mute-icon";
@@ -173,7 +174,20 @@ class VideoPlayer {
 		if (container) {
 			this._muteContainer = container;
 		} else {
-			console.error("Cannot adjust video volume");
+			console.error("Cannot mute video");
+		}
+	}
+
+	get unmuteContainer() {
+		return this._unmuteContainer;
+	}
+
+	set unmuteContainer(selector) {
+		let container = this.videoContainer.querySelector(selector);
+		if (container) {
+			this._unmuteContainer = container;
+		} else {
+			console.error("Cannot unmute video");
 		}
 	}
 
@@ -584,6 +598,16 @@ class VideoPlayer {
 		this.volumeProgressBar.style.width = "0%";
 		this.volumeProgressHandle.style.left = "0%";
 		this.muteTooltip.innerHTML = "Unmute (m)";
+
+		this.unmuteContainer.classList.add("active");
+
+		if(this.unmuteContainerTimer){
+			clearTimeout(this.unmuteContainerTimer);
+		}
+
+		this.unmuteContainerTimer = setTimeout(() => {
+			this.unmuteContainer.classList.remove("active");
+		},1000);
 	}
 
 	unmute() {
@@ -591,6 +615,16 @@ class VideoPlayer {
 		this.videoElement.muted = false;
 		this.muteTooltip.innerHTML = "Mute (m)";
 		this.restoreVolume();
+
+		this.muteContainer.classList.add("active");
+
+		if(this.muteContainerTimer){
+			clearTimeout(this.muteContainerTimer);
+		}
+
+		this.muteContainerTimer = setTimeout(() => {
+			this.muteContainer.classList.remove("active");
+		},1000);
 	}
 
 	toggleSettingBtn = (e) => {

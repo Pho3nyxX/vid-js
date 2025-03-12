@@ -32,6 +32,7 @@
 		}
 
 		.mute-container,		
+		.unmute-container,		
 		.forward-container, 
 		.rewind-container,
 		.play-container,
@@ -42,6 +43,7 @@
 			border-radius: 50%;
 
 			#muteImg,
+			#unmuteImg,
 			#forward, 
 			#rewind,
 			#pause {
@@ -60,7 +62,8 @@
  		}
 
 		.percentage,
-		.mute-container,
+		.mute-container,		
+		.unmute-container,
 		.forward-container, 
 		.rewind-container,
 		.play-container,
@@ -74,9 +77,10 @@
 				visibility: visible;
 			}
 		}
-		
+
 		.percentage,
 		.mute-container,
+		.unmute-container,
 		.play-container,
 		.pause-container {
 			left: 50%;
