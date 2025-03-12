@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800px"
+   height="800px"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="rewind.svg"
+   inkscape:version="1.4 (1:1.4+202410161351+e7c3feb100)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.04375"
+     inkscape:cx="400.47904"
+     inkscape:cy="400"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <title
+     id="title1">forward</title>
+  <desc
+     id="desc1">Created with sketchtool.</desc>
+  <g
+     id="media-player"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd"
+     style="fill:#ffffff"
+     transform="rotate(180,12,12)">
+    <g
+       id="forward"
+       fill="#000000"
+       fill-rule="nonzero"
+       style="fill:#ffffff">
+      <path
+         d="M 12,11.99947 V 7.6511676 c 0,-0.1105596 0.02465,-0.2192979 0.07163,-0.3159644 0.152785,-0.314381 0.499782,-0.4277751 0.775038,-0.2532728 l 6.859845,4.3488916 c 0.0932,0.05908 0.170022,0.146829 0.221753,0.253273 0.152785,0.314381 0.0535,0.710699 -0.221753,0.885202 l -6.859845,4.348891 C 12.762031,16.971845 12.666826,17 12.570025,17 12.255209,17 12,16.708516 12,16.348951 V 11.99947 c 0,0.22887 -0.105862,0.450879 -0.293487,0.569827 L 4.8466676,16.918188 C 4.7620313,16.971845 4.6668256,17 4.5700252,17 4.255209,17 4,16.708516 4,16.348951 V 7.6511676 C 4,7.540608 4.0246513,7.4318697 4.07163,7.3352032 4.2244154,7.0208222 4.5714115,6.9074281 4.8466676,7.0819304 l 6.8598454,4.3488916 c 0.0932,0.05908 0.170022,0.146829 0.221753,0.253273 C 11.976907,11.784182 12,11.892575 12,11.99947 Z"
+         id="Shape"
+         style="fill:#ffffff" />
+    </g>
+  </g>
+</svg>

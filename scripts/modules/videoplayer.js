@@ -5,6 +5,8 @@ class VideoPlayer {
 		this.videoControls = ".video-controls";
 		this.playBtn = ".play-pause-btn";
 		this.fullScreenBtn = ".full-screen-btn";
+		this.forwardContainer = ".forward-container";
+		this.rewindContainer = ".rewind-container";
 		this.muteImg = "#muteImg";
 		this.muteContainer = ".mute-container";
 		this.mutePercentage = ".percentage";
@@ -92,6 +94,32 @@ class VideoPlayer {
 			this._fullScreenBtn = btn;
 		} else {
 			console.error("Cannot enter full screen.");
+		}
+	}
+
+	get forwardContainer() {
+		return this._forwardContainer;
+	}
+
+	set forwardContainer(selector) {
+		let container = this.videoContainer.querySelector(selector);
+		if (container) {
+			this._forwardContainer = container;
+		} else {
+			console.error("Cannot forward video.");
+		}
+	}
+
+	get rewindContainer() {
+		return this._rewindContainer;
+	}
+
+	set rewindContainer(selector) {
+		let container = this.videoContainer.querySelector(selector);
+		if (container) {
+			this._rewindContainer = container;
+		} else {
+			console.error("Cannot rewind video.");
 		}
 	}
 
@@ -407,9 +435,17 @@ class VideoPlayer {
 		this.videoElement.addEventListener("loadedmetadata", this.metaDataLoaded);
 		this.scrubBar.addEventListener("click", this.scrubBarPress);
 		this.volumeProgressHandle.addEventListener("mousedown", this.volumeProgressHandleDownMousePress);
-		// this.videoContainer.addEventListener("click", this.closeSettings);
+		this.videoContainer.addEventListener("click", this.closeSettings);
 
 		this.videoElement.addEventListener("mousemove", this.showVideoControls);
+
+	}
+
+	//TODO:: close settings when user clicks away from video
+	closeSettings = (e) => {
+		if(!this.videoContainer){
+			this.settingsMenu.classList.remove("active");
+		}
 	}
 
 	showVideoControls = (e) => {
@@ -698,6 +734,30 @@ class VideoPlayer {
 				this.videoElement.currentTime
 			);
 			this.updateProgressBar(this);
+
+			if(e.code === "ArrowRight"){
+				this.rewindContainer.classList.remove("active");
+				this.forwardContainer.classList.add("active");
+
+				if(this.forwardContainerTimer){
+					clearTimeout(this.forwardContainerTimer);
+				}
+	
+				this.forwardContainerTimer = setTimeout(() => {
+					this.forwardContainer.classList.remove("active");
+				},1000);
+			}else{
+				this.forwardContainer.classList.remove("active");
+				this.rewindContainer.classList.add("active");
+
+				if(this.rewindContainerTimer){
+					clearTimeout(this.rewindContainerTimer);
+				}
+	
+				this.rewindContainerTimer = setTimeout(() => {
+					this.rewindContainer.classList.remove("active");
+				},1000);
+			}
 		}
 		if(e.code === "KeyJ" || e.code === "KeyL" ){
 			e.preventDefault();
@@ -716,8 +776,8 @@ class VideoPlayer {
 			this.updateProgressBar(this);
 		}
 		if(e.code === "ArrowUp" || e.code === "ArrowDown" ){
-			let volumeIncreaseAmount = e.code == "ArrowUp" ? 0.05: -0.05;  
 			e.preventDefault();
+			let volumeIncreaseAmount = e.code == "ArrowUp" ? 0.05: -0.05;  
 
 			let {newVolume, volumePercent} = this.updateVolume(volumeIncreaseAmount);
 
