@@ -63,6 +63,6 @@ npm install Video Player
 ## Why This Player?
 - No frameworks required
 - No forced UI
-- No bloated dependencies  
+- No dependencies  
 
-If you’ve ever wanted **full control over a video player** without reinventing the wheel, this library is for you.
+If you’ve ever wanted **full control over a video player**, this library is for you.
