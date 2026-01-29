@@ -16,7 +16,8 @@
     * volume
     * fullscreen
     * exit fullscreen
-    * draggable progress bar, etc.
+    * draggable progress bar
+    * scrub handle with live progress updates, etc.
 - **Keyboard Shortcuts**
     * space - play and pause.
     * keyK - play and pause.
@@ -36,9 +37,32 @@
 - **Quality Control**: Allow users to change the quality of videos.
 - **Subtitle Control**: Allow users to switch on or off subtitle of videos.
 
+## Configuration
+
+The player relies on **class selectors** for flexibility. You control structure and styling; the library handles behavior.
+
+Examples:
+- `.play-pause-btn`
+- `.scrub-bar`
+- `.volume-scrub-bar`
+- `.settings-menu`   
+
+This makes it easy to:
+- Replace icons
+- Animate controls
+- Match your brand design
+
 ## Installation
 
-<!-- You can install Video Player via npm:
+You can install Video Player via npm:
 
 ```bash
-npm install Video Player -->
+npm install Video Player
+```   
+
+## Why This Player?
+- No frameworks required
+- No forced UI
+- No bloated dependencies  
+
+If you’ve ever wanted **full control over a video player** without reinventing the wheel, this library is for you.
