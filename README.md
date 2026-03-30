@@ -1,8 +1,8 @@
-# Video Player 
+# VidJS 
 
 ## Introduction
 
- Video Player is a simple and easy-to-use library that provides a custom videoplayer built on top of the html video element. It customises and extends the available controls. 
+VidJS is a simple and easy-to-use library that provides a custom videoplayer built on top of the html video element. It customises and extends the available controls. 
 
  ## Features
 
@@ -54,15 +54,8 @@ This makes it easy to:
 
 ## Installation
 
-You can install Video Player via npm:
+You can install VidJS via npm:
 
 ```bash
-npm install Video Player
+npm install VidJS 
 ```   
-
-## Why This Player?
-- No frameworks required
-- No forced UI
-- No dependencies  
-
-If you’ve ever wanted **full control over a video player**, this library is for you.
