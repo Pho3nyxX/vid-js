@@ -1,61 +1,68 @@
 # VidJS 
 
-## Introduction
-
-VidJS is a simple and easy-to-use library that provides a custom videoplayer built on top of the html video element. It customises and extends the available controls. 
+VidJS is a lightweight, customizable video player built on the HTML5 video element with enhanced controls. 
 
  ## Features
 
-- **Playback Speed Control** 
-    * Allow users to change the playback speed of videos.
-- **Customizable Controls**
-    * Use your own icons and colors with the Video Player.
-- **Available Controls** 
-    * Play/pause
-    * mute/unmute
-    * volume
-    * fullscreen
-    * exit fullscreen
-    * draggable progress bar
-    * scrub handle with live progress updates, etc.
-- **Keyboard Shortcuts**
-    * space - play and pause.
-    * keyK - play and pause.
-    * keyF - enter and exit fullscreen.
-    * keyM - mute and unmute.
-    * ArrowRight - fast forward.
-    * ArrowLeft - rewind.
-    * keyJ - fast forward.
-    * keyL - rewind.
-    * Numpad0 - bring back to start.
-    * digit0 - bring back to start.
-- **Events API**
-    * Listen for events such as video near end to trigger custom behavior.
+- **Custom Controls** – Fully replace and style your own controls.   
+- **Playback Speed Control** – Adjust speed seamlessly.   
+- **Full Player Control** – Play, pause, volume, fullscreen, and more.   
+- **Draggable Progress Bar** – Smooth scrubbing with live updates.   
+- **Keyboard Shortcuts** – Built-in shortcuts for better UX.   
+- **Flexible Structure** – Control UI with your own HTML + CSS.   
+- **Events API** – Hook into player events for custom behavior
 
 ## Upcoming Features
 
 - **Quality Control**: Allow users to change the quality of videos.
 - **Subtitle Control**: Allow users to switch on or off subtitle of videos.
 
-## Configuration
+ ## Available Controls
 
-The player relies on **class selectors** for flexibility. You control structure and styling; the library handles behavior.
+- Play / Pause
+- Mute / Unmute
+- Volume Control
+- Fullscreen / Exit Fullscreen
+- Draggable Progress Bar
+- Scrub Handle with Live Updates
 
-Examples:
+## Keyboard Shortcuts
+
+| Key           | Action            |
+| ------------- | ----------------- |
+| `Space` / `K` | Play / Pause      |
+| `F`           | Toggle Fullscreen |
+| `M`           | Mute / Unmute     |
+| `→`           | Fast Forward      |
+| `←`           | Rewind            |
+| `J`           | Fast Forward      |
+| `L`           | Rewind            |
+| `0`           | Restart Video     |
+
+## Installation
+
+```bash
+npm install VidJS 
+```   
+
+## Customization
+
+VidJS uses **class-based selectors**, giving you full control over structure and styling.
+
+Example classes:
+
 - `.play-pause-btn`
 - `.scrub-bar`
 - `.volume-scrub-bar`
 - `.settings-menu`   
 
-This makes it easy to:
+This allows you to:
 - Replace icons
 - Animate controls
+- Design your own UI
 - Match your brand design
 
-## Installation
 
-You can install VidJS via npm:
+## Events API
 
-```bash
-npm install VidJS 
-```   
+Listen to player events and trigger custom behavior.
